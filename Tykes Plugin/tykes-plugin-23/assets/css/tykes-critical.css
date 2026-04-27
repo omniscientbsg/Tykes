@@ -1,0 +1,404 @@
+/* ==========================================================================
+   Tykes Design System — CRITICAL OVERRIDE CSS v2.2
+   This file is injected INLINE into <head> — it cannot be cached by
+   WordPress, Hostinger, or any CDN. It always wins over Elementor styles.
+
+   Mirrors the hardcoded HTML (tykes-contact.html) exactly.
+   ========================================================================== */
+
+/* ── 1. HEADER: slim frosted-glass, NOT solid white ─────────────────────── */
+
+/* The outer wrapper has NO background — it's transparent */
+#siteHeader,
+.site-header,
+.tykes-header-wrap #siteHeader,
+#tykes-global-header .site-header {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-bottom: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Background lives ONLY on .header-inner — exactly like hardcoded HTML */
+#siteHeader .header-inner,
+.site-header .header-inner {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid rgba(124, 58, 237, 0.08) !important;
+  padding: 18px 30px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  transition: all 0.4s !important;
+}
+
+/* Scrolled state — slightly more opaque */
+#siteHeader.scrolled .header-inner,
+.site-header.scrolled .header-inner {
+  background: rgba(255, 255, 255, 0.97) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  box-shadow: 0 4px 30px rgba(124, 58, 237, 0.12) !important;
+  padding: 10px 30px !important;
+  border-bottom: none !important;
+}
+
+/* ── 2. NAV: absolutely centered, NOT a flex child ───────────────────────── */
+
+#siteHeader .main-nav,
+.site-header .main-nav {
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  flex: unset !important;
+  max-width: unset !important;
+  margin: 0 !important;
+  overflow: visible !important;   /* CRITICAL — no overflow clipping on nav */
+  overflow-x: unset !important;
+  flex-wrap: nowrap !important;
+}
+
+/* ── 3. DROPDOWNS: must be visible, not clipped ──────────────────────────── */
+
+#siteHeader .nav-dropdown,
+.site-header .nav-dropdown {
+  position: absolute !important;
+  top: 100% !important;
+  left: 50% !important;
+  transform: translateX(-50%) translateY(8px) !important;
+  background: white !important;
+  border-radius: 20px !important;
+  box-shadow: 0 20px 60px rgba(124, 58, 237, 0.18) !important;
+  border: 1px solid rgba(124, 58, 237, 0.1) !important;
+  padding: 12px !important;
+  padding-top: 20px !important; /* compensates for the invisible bridge above */
+  min-width: 200px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  transition: opacity 0.25s, transform 0.25s, visibility 0.25s !important;
+  z-index: 999999 !important;
+  overflow: visible !important;
+}
+
+/* Invisible bridge fills the gap between the nav link and the dropdown
+   so the mouse can travel downward without losing hover. */
+#siteHeader .nav-item:hover .nav-dropdown::before,
+.site-header .nav-item:hover .nav-dropdown::before,
+#siteHeader .nav-item.open .nav-dropdown::before,
+.site-header .nav-item.open .nav-dropdown::before {
+  content: '' !important;
+  position: absolute !important;
+  bottom: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 20px !important;
+  background: transparent !important;
+  pointer-events: all !important;
+}
+
+/* Show on CSS hover — desktop */
+#siteHeader .nav-item:hover .nav-dropdown,
+.site-header .nav-item:hover .nav-dropdown,
+/* Show on JS .open class — touch / keyboard */
+#siteHeader .nav-item.open .nav-dropdown,
+.site-header .nav-item.open .nav-dropdown {
+  opacity: 1 !important;
+  pointer-events: all !important;
+  visibility: visible !important;
+  transform: translateX(-50%) translateY(0) !important;
+}
+
+/* Chevron rotation on hover AND .open */
+#siteHeader .nav-item:hover > a .chevron,
+#siteHeader .nav-item.open > a .chevron,
+.site-header .nav-item:hover > a .chevron,
+.site-header .nav-item.open > a .chevron {
+  transform: rotate(180deg) !important;
+}
+
+/* ── 4. CONTACT FORMS: exact match to hardcoded HTML ─────────────────────── */
+
+/* Form card container */
+.contact-form-card {
+  background: white !important;
+  border-radius: 28px !important;
+  padding: 44px 40px !important;
+  box-shadow: 0 20px 80px rgba(130, 87, 189, 0.12) !important;
+  border: 2px solid #f3edff !important;
+}
+
+.contact-form-card h3 {
+  font-family: 'Fredoka', cursive !important;
+  font-size: 1.7rem !important;
+  color: #8257bd !important;
+  margin-bottom: 6px !important;
+}
+
+.contact-form-card > p {
+  font-size: 0.92rem !important;
+  color: #6B7280 !important;
+  margin-bottom: 24px !important;
+  line-height: 1.6 !important;
+}
+
+/* Labels */
+.cf-label {
+  display: block !important;
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+  color: #1E1B4B !important;
+  margin-bottom: 6px !important;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+/* Input fields */
+.cf-input,
+.cf-input[type="text"],
+.cf-input[type="email"],
+.cf-input[type="tel"],
+.cf-input[type="number"],
+select.cf-input,
+textarea.cf-input {
+  width: 100% !important;
+  padding: 13px 16px !important;
+  border-radius: 12px !important;
+  border: 2px solid #eaeaea !important;
+  outline: none !important;
+  background: #fafafa !important;
+  color: #1E1B4B !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 0.93rem !important;
+  transition: border-color 0.25s, box-shadow 0.25s !important;
+  box-shadow: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+.cf-input:focus,
+.cf-input[type="text"]:focus,
+.cf-input[type="email"]:focus,
+.cf-input[type="tel"]:focus,
+select.cf-input:focus,
+textarea.cf-input:focus {
+  border-color: #8257bd !important;
+  box-shadow: 0 0 0 4px rgba(130, 87, 189, 0.08) !important;
+  background: #fff !important;
+  outline: none !important;
+}
+
+/* Select custom arrow */
+select.cf-input {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238257bd' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 14px center !important;
+  background-size: 16px !important;
+  padding-right: 40px !important;
+  cursor: pointer !important;
+}
+
+/* Textarea */
+textarea.cf-input {
+  resize: vertical !important;
+  min-height: 110px !important;
+}
+
+/* 2-col row */
+.cf-row {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 14px !important;
+}
+
+/* Submit button */
+.cf-submit {
+  background: linear-gradient(135deg, #8257bd, #6d46a8) !important;
+  color: white !important;
+  width: 100% !important;
+  padding: 16px !important;
+  border-radius: 12px !important;
+  border: none !important;
+  font-size: 1rem !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  font-family: 'Poppins', sans-serif !important;
+  box-shadow: 0 10px 30px rgba(130, 87, 189, 0.3) !important;
+  transition: transform 0.3s, box-shadow 0.3s !important;
+  margin-top: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+}
+
+.cf-submit:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 16px 40px rgba(130, 87, 189, 0.4) !important;
+}
+
+/* Privacy note */
+.cf-privacy {
+  font-size: 0.73rem !important;
+  color: #6B7280 !important;
+  text-align: center !important;
+  margin-top: 12px !important;
+}
+
+/* ── 5. INFO CARDS (right panel) ─────────────────────────────────────────── */
+
+/* Tab info right panel */
+.tab-info h3 {
+  font-family: 'Fredoka', cursive !important;
+  font-size: 1.6rem !important;
+  color: #1E1B4B !important;
+  margin-bottom: 14px !important;
+}
+
+.tab-info > p {
+  font-size: 1rem !important;
+  color: #6B7280 !important;
+  line-height: 1.75 !important;
+  margin-bottom: 28px !important;
+}
+
+/* Info card list */
+.info-cards {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+}
+
+.info-card {
+  background: #F9F7FF !important;
+  border-radius: 16px !important;
+  padding: 20px 22px !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 14px !important;
+  transition: 0.25s !important;
+  border-left: 4px solid transparent !important;
+  border: 1px solid transparent !important;
+  border-left: 4px solid transparent !important;
+}
+
+.info-card:hover {
+  border-left-color: #8257bd !important;
+  transform: translateX(4px) !important;
+}
+
+.info-card .ic-icon {
+  font-size: 1.6rem !important;
+  flex-shrink: 0 !important;
+  margin-top: 1px !important;
+}
+
+.info-card h5 {
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  color: #1E1B4B !important;
+  margin-bottom: 3px !important;
+}
+
+.info-card p,
+.info-card a {
+  font-size: 0.88rem !important;
+  color: #6B7280 !important;
+  line-height: 1.6 !important;
+}
+
+.info-card a:hover {
+  color: #8257bd !important;
+}
+
+/* ── 6. TAB BUTTONS ──────────────────────────────────────────────────────── */
+
+.purpose-tabs {
+  display: flex !important;
+  gap: 12px !important;
+  margin-bottom: 48px !important;
+  background: #F9F7FF !important;
+  border-radius: 16px !important;
+  padding: 8px !important;
+  max-width: 700px !important;
+}
+
+.ptab {
+  flex: 1 !important;
+  padding: 13px 10px !important;
+  border-radius: 12px !important;
+  font-family: 'Fredoka', cursive !important;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  border: none !important;
+  background: none !important;
+  color: #6B7280 !important;
+  transition: 0.3s !important;
+}
+
+.ptab.active {
+  background: white !important;
+  color: #8257bd !important;
+  box-shadow: 0 4px 20px rgba(130, 87, 189, 0.12) !important;
+}
+
+/* Tab panes */
+.ptab-pane {
+  display: none !important;
+}
+
+.ptab-pane.active {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 60px !important;
+  align-items: start !important;
+}
+
+/* ── 7. Elementor container width fix ────────────────────────────────────── */
+/* Prevent Elementor from constraining the header to a narrow column */
+.tykes-header-wrap,
+#tykes-global-header {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* ── 8. Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .ptab-pane.active {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 991px) {
+  #siteHeader .main-nav,
+  .site-header .main-nav {
+    display: none !important;
+  }
+
+  .cf-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .purpose-tabs {
+    flex-direction: column !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .cf-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .contact-form-card {
+    padding: 28px 22px !important;
+  }
+}

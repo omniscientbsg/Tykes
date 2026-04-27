@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How We Support You – Tykes Early Years Franchise</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ─── BRAND TOKENS ─── */
+    :root {
+      --p: #8257bd;
+      --pd: #6d46a8;
+      --pl: #a884e3;
+      --pxl: #f3edff;
+      --gold: #fdbc02;
+      --goldd: #e0a800;
+      --orange: #fc8738;
+      --pink: #dd5b9d;
+      --coral: #e44a4b;
+      --teal: #05a28d;
+      --sky: #0EA5E9;
+      --green: #22C55E;
+      --white: #FFFFFF;
+      --txt: #1E1B4B;
+      --muted: #6B7280;
+      --bg-cream: #FFFBF0;
+      --bg-mint: #F0FDF8;
+      --bg-blush: #FFF5FB;
+      --bg-lav: #F9F7FF;
+    }
+
+    /* ─── RESET ─── */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body.tykes-home { font-family: 'Poppins', sans-serif; background: var(--bg-lav); color: var(--txt); overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+    /* ─── KEYFRAMES ─── */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes slideRight { from { opacity:0; transform:translateX(-20px); } to { opacity:1; transform:translateX(0); } }
+    @keyframes pulseDot { 0%,100% { transform:scale(1); box-shadow:0 0 0 0 rgba(5,162,141,.4); } 50% { transform:scale(1.1); box-shadow:0 0 0 8px rgba(5,162,141,0); } }
+
+    /* ─── HEADER ─── */
+    .site-header { position:fixed; top:0; left:0; width:100%; z-index:9000; transition:all .4s ease; }
+    .site-header.scrolled .header-inner { background:rgba(255,255,255,.97); backdrop-filter:blur(20px); box-shadow:0 4px 30px rgba(124,58,237,.12); padding:10px 30px; border-bottom:none; }
+    .header-inner { display:flex; align-items:center; justify-content:space-between; position:relative; padding:18px 30px; background:rgba(255,255,255,.85); backdrop-filter:blur(16px); border-bottom:1px solid rgba(124,58,237,.08); transition:all .4s ease; }
+    .header-logo { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+    .header-logo img { height:46px; width:auto; display:block; }
+    .main-nav { display:flex; align-items:center; gap:4px; position:absolute; left:50%; transform:translateX(-50%); }
+    .nav-item { position:relative; }
+    .nav-item>a { display:flex; align-items:center; gap:5px; padding:8px 14px; border-radius:50px; font-weight:700; font-size:.92rem; color:var(--txt); transition:.25s; white-space:nowrap; }
+    .nav-item>a:hover, .nav-item>a.active { color:var(--p); background:var(--pxl); }
+    .nav-item>a .chevron { display:inline-block; width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:2.5; transition:transform .3s; }
+    .nav-item:hover>a .chevron { transform:rotate(180deg); }
+    .nav-dropdown { position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%) translateY(8px); background:white; border-radius:20px; box-shadow:0 20px 60px rgba(124,58,237,.18); border:1px solid rgba(124,58,237,.1); padding:12px; min-width:200px; opacity:0; pointer-events:none; visibility:hidden; transition:opacity .25s, transform .25s; }
+    .nav-item:hover .nav-dropdown { opacity:1; pointer-events:all; visibility:visible; transform:translateX(-50%) translateY(0); }
+    .nav-dropdown a { display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px; font-size:.9rem; font-weight:600; color:var(--txt); transition:.2s; white-space:nowrap; }
+    .nav-dropdown a:hover { background:var(--pxl); color:var(--p); }
+    .nav-dropdown a .dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+    .header-cta { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+    .btn-enroll { background:linear-gradient(135deg, var(--p), var(--pd)); color:white; padding:10px 22px; border-radius:50px; font-weight:800; font-size:.9rem; border:none; cursor:pointer; font-family:inherit; transition:.3s; box-shadow:0 6px 20px rgba(124,58,237,.35); }
+    .btn-enroll:hover { transform:translateY(-2px); box-shadow:0 10px 28px rgba(124,58,237,.45); }
+    .ham-btn { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:6px; z-index:9100; }
+    .ham-btn span { display:block; width:24px; height:2.5px; background:var(--p); border-radius:4px; transition:.35s; }
+    .ham-btn.open span:nth-child(1) { transform:translateY(7.5px) rotate(45deg); }
+    .ham-btn.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+    .ham-btn.open span:nth-child(3) { transform:translateY(-7.5px) rotate(-45deg); }
+    .mobile-drawer { display:none; position:fixed; inset:0; z-index:9050; background:rgba(30,27,75,.55); backdrop-filter:blur(6px); opacity:0; transition:opacity .35s; }
+    .mobile-drawer.open { opacity:1; pointer-events:all; }
+    .drawer-panel { position:absolute; top:0; right:-340px; width:320px; height:100%; background:white; box-shadow:-20px 0 50px rgba(0,0,0,.18); padding:28px 24px; overflow-y:auto; transition:right .4s cubic-bezier(.4,0,.2,1); display:flex; flex-direction:column; gap:4px; }
+    .mobile-drawer.open .drawer-panel { right:0; }
+    .drawer-logo { margin-bottom:24px; }
+    .drawer-logo img { height:38px; }
+    .mob-link { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-radius:14px; font-weight:700; font-size:1rem; color:var(--txt); cursor:pointer; transition:.2s; border:none; background:none; width:100%; text-align:left; font-family:inherit; }
+    .mob-link:hover, .mob-link.open { background:var(--pxl); color:var(--p); }
+    .mob-sub { padding-left:16px; display:none; flex-direction:column; gap:2px; }
+    .mob-sub.open { display:flex; }
+    .mob-sub a { padding:9px 12px; border-radius:10px; font-size:.9rem; font-weight:600; color:var(--muted); display:block; }
+    .mob-sub a:hover { color:var(--p); background:var(--pxl); }
+    .mob-enroll-btn { margin-top:20px; background:linear-gradient(135deg, var(--p), var(--pd)); color:white; width:100%; padding:14px; border-radius:50px; border:none; font-weight:800; font-size:1rem; cursor:pointer; font-family:inherit; }
+
+    /* ─── BREADCRUMB ─── */
+    .breadcrumb-bar { background:white; border-bottom:1px solid #f0eeff; padding:14px 0; margin-top:82px; }
+    .breadcrumb-inner { display:flex; align-items:center; gap:8px; font-size:.82rem; font-weight:600; color:var(--muted); }
+    .breadcrumb-inner a { color:var(--muted); transition:.2s; }
+    .breadcrumb-inner a:hover { color:var(--p); }
+    .breadcrumb-inner .sep { color:#d1d5db; }
+    .breadcrumb-inner .current { color:var(--p); }
+
+    /* ─── PAGE HERO ─── */
+    .page-hero {
+      padding:80px 0 90px;
+      position:relative; overflow:hidden;
+      background:linear-gradient(135deg, #e6fdf8 0%, #f0fdf8 35%, #EDE9FF 65%, #F5F2FF 100%);
+    }
+    .page-hero::before {
+      content:''; position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse 70% 80% at 0% 50%, rgba(5,162,141,0.14) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 100% 20%, rgba(253,188,2,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 50% at 80% 90%, rgba(130,87,189,0.10) 0%, transparent 50%);
+      pointer-events:none; z-index:1;
+    }
+    .page-hero::after {
+      content:''; position:absolute; top:-60px; right:-60px;
+      width:420px; height:420px; border-radius:50%;
+      background:radial-gradient(circle, rgba(5,162,141,0.12) 0%, transparent 65%);
+      filter:blur(40px); pointer-events:none; z-index:1;
+    }
+    .page-hero-grid { display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:center; position:relative; z-index:2; }
+    .page-hero-content { animation:fadeUp .7s ease both; }
+    .page-eyebrow { display:inline-flex; align-items:center; gap:8px; background:white; padding:6px 14px; border-radius:50px; font-size:.7rem; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--teal); margin-bottom:20px; box-shadow:0 4px 15px rgba(5,162,141,.1); }
+    .page-eyebrow .edot { width:6px; height:6px; background:var(--orange); border-radius:50%; display:inline-block; }
+    .page-h1 { font-family:'Fredoka', cursive; font-size:clamp(2.3rem, 4.2vw, 3.6rem); color:var(--txt); line-height:1.1; margin-bottom:20px; letter-spacing:-1.5px; }
+    .page-h1 .hl { color:var(--teal); position:relative; display:inline-block; }
+    .page-h1 .hl::after { content:''; position:absolute; bottom:4px; left:0; width:100%; height:6px; background:var(--gold); border-radius:4px; z-index:-1; }
+    .page-intro { font-size:1rem; color:var(--muted); line-height:1.75; max-width:560px; }
+
+    /* Hero right — quick-stats card */
+    .hero-stats-card { background:white; border-radius:28px; padding:36px 32px; box-shadow:0 24px 60px rgba(5,162,141,.14); border:1px solid #d0f5ef; animation:fadeUp .7s .18s ease both; }
+    .hsc-title { font-family:'Fredoka', cursive; font-size:1.25rem; color:var(--txt); margin-bottom:24px; }
+    .hsc-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .hsc-stat { padding:20px 16px; border-radius:16px; text-align:center; }
+    .hsc-stat:nth-child(1) { background:linear-gradient(135deg,#e6fdf8,#d0f5ef); border:1.5px solid rgba(5,162,141,.2); }
+    .hsc-stat:nth-child(2) { background:linear-gradient(135deg,#fef9e7,#fffbf0); border:1.5px solid rgba(253,188,2,.25); }
+    .hsc-stat:nth-child(3) { background:linear-gradient(135deg,#f5f0ff,#ede9ff); border:1.5px solid rgba(130,87,189,.2); }
+    .hsc-stat:nth-child(4) { background:linear-gradient(135deg,#fff4ed,#ffe8d6); border:1.5px solid rgba(252,135,56,.2); }
+    .hsc-val { font-family:'Fredoka', cursive; font-size:1.9rem; font-weight:700; display:block; line-height:1.1; margin-bottom:4px; }
+    .hsc-stat:nth-child(1) .hsc-val { color:var(--teal); }
+    .hsc-stat:nth-child(2) .hsc-val { color:var(--gold); }
+    .hsc-stat:nth-child(3) .hsc-val { color:var(--p); }
+    .hsc-stat:nth-child(4) .hsc-val { color:var(--orange); }
+    .hsc-lbl { font-size:.68rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:1px; line-height:1.4; }
+
+    /* ─── SECTION SHARED ─── */
+    .section-eyebrow { display:inline-flex; align-items:center; gap:8px; background:var(--pxl); padding:6px 14px; border-radius:50px; font-size:.72rem; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--p); margin-bottom:18px; }
+    .section-eyebrow.teal { background:#edfdf8; color:var(--teal); }
+    .section-eyebrow .edot { width:6px; height:6px; background:var(--orange); border-radius:50%; }
+    .section-h2 { font-family:'Fredoka', cursive; font-size:clamp(2rem, 3vw, 2.8rem); color:var(--txt); line-height:1.15; letter-spacing:-.8px; }
+    .section-h2 .hl { color:var(--p); }
+    .section-h2 .hl-teal { color:var(--teal); }
+    .section-h2 .hl-gold { color:var(--gold); }
+    .section-p { font-size:.97rem; color:var(--muted); line-height:1.8; }
+
+    /* ─── SUPPORT PHASES ─── */
+    .support-sec { padding:90px 0; background:white; position:relative; z-index:1; isolation:isolate; }
+    .support-header { text-align:center; margin-bottom:70px; }
+    .support-header .section-h2 { margin-top:14px; }
+
+    /* Phase tabs */
+    .phase-tabs { display:flex; gap:0; border-radius:20px; background:var(--bg-lav); padding:6px; width:fit-content; margin:0 auto 60px; border:1.5px solid var(--pxl); }
+    .phase-tab { padding:11px 28px; border-radius:14px; font-size:.88rem; font-weight:800; cursor:pointer; transition:.25s; border:none; background:none; font-family:'Poppins',sans-serif; color:var(--muted); }
+    .phase-tab.active { background:white; color:var(--p); box-shadow:0 4px 16px rgba(130,87,189,.14); }
+
+    /* Phase panels — 3-column card grid */
+    .phase-panel { display:none; }
+    .phase-panel.active { display:block; }
+
+    .phase-intro { max-width:680px; margin:0 auto 50px; text-align:center; font-size:.97rem; color:var(--muted); line-height:1.75; }
+
+    .support-cards { display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; }
+    .support-card { border-radius:22px; padding:32px 28px; border:1.5px solid transparent; transition:transform .3s, box-shadow .3s; position:relative; overflow:hidden; }
+    .support-card:hover { transform:translateY(-6px); box-shadow:0 20px 50px rgba(0,0,0,.1); }
+    .support-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; border-radius:22px 22px 0 0; }
+
+    /* Pre-launch colours */
+    .pl-card-1 { background:linear-gradient(135deg,#f5f0ff,#ede9ff); border-color:rgba(130,87,189,.15); }
+    .pl-card-1::before { background:var(--p); }
+    .pl-card-2 { background:linear-gradient(135deg,#fef9e7,#fffbf0); border-color:rgba(253,188,2,.2); }
+    .pl-card-2::before { background:var(--gold); }
+    .pl-card-3 { background:linear-gradient(135deg,#e6fdf8,#d0f5ef); border-color:rgba(5,162,141,.15); }
+    .pl-card-3::before { background:var(--teal); }
+    .pl-card-4 { background:linear-gradient(135deg,#fff4ed,#ffe8d6); border-color:rgba(252,135,56,.15); }
+    .pl-card-4::before { background:var(--orange); }
+    .pl-card-5 { background:linear-gradient(135deg,#fff0f0,#ffe8e8); border-color:rgba(228,74,75,.15); }
+    .pl-card-5::before { background:var(--coral); }
+
+    /* Launch colours */
+    .la-card-1 { background:linear-gradient(135deg,#e6fdf8,#d0f5ef); border-color:rgba(5,162,141,.15); }
+    .la-card-1::before { background:var(--teal); }
+    .la-card-2 { background:linear-gradient(135deg,#fef9e7,#fffbf0); border-color:rgba(253,188,2,.2); }
+    .la-card-2::before { background:var(--gold); }
+    .la-card-3 { background:linear-gradient(135deg,#f5f0ff,#ede9ff); border-color:rgba(130,87,189,.15); }
+    .la-card-3::before { background:var(--p); }
+    .la-card-4 { background:linear-gradient(135deg,#fff4ed,#ffe8d6); border-color:rgba(252,135,56,.15); }
+    .la-card-4::before { background:var(--orange); }
+    .la-card-5 { background:linear-gradient(135deg,#fff5fb,#ffe8f5); border-color:rgba(221,91,157,.15); }
+    .la-card-5::before { background:var(--pink); }
+
+    /* Post-launch colours */
+    .po-card-1 { background:linear-gradient(135deg,#e6fdf8,#d0f5ef); border-color:rgba(5,162,141,.15); }
+    .po-card-1::before { background:var(--teal); }
+    .po-card-2 { background:linear-gradient(135deg,#f5f0ff,#ede9ff); border-color:rgba(130,87,189,.15); }
+    .po-card-2::before { background:var(--p); }
+    .po-card-3 { background:linear-gradient(135deg,#fef9e7,#fffbf0); border-color:rgba(253,188,2,.2); }
+    .po-card-3::before { background:var(--gold); }
+    .po-card-4 { background:linear-gradient(135deg,#fff4ed,#ffe8d6); border-color:rgba(252,135,56,.15); }
+    .po-card-4::before { background:var(--orange); }
+
+    .sc-icon { font-size:2rem; margin-bottom:16px; }
+    .sc-title { font-family:'Fredoka', cursive; font-size:1.2rem; color:var(--txt); margin-bottom:10px; letter-spacing:-.3px; }
+    .sc-desc { font-size:.88rem; color:var(--muted); line-height:1.65; }
+
+    /* ─── CONTINUOUS SUPPORT STRIP ─── */
+    .continuous-strip { margin-top:60px; background:linear-gradient(135deg, var(--p), var(--pd)); border-radius:24px; padding:36px 40px; display:flex; align-items:center; gap:24px; }
+    .cs-icon { font-size:2.5rem; flex-shrink:0; }
+    .cs-body { flex:1; }
+    .cs-title { font-family:'Fredoka', cursive; font-size:1.3rem; color:white; margin-bottom:6px; }
+    .cs-desc { font-size:.9rem; color:rgba(255,255,255,.75); line-height:1.6; }
+    .cs-badge { flex-shrink:0; background:rgba(253,188,2,.2); border:1px solid rgba(253,188,2,.4); color:#FBBF24; padding:8px 20px; border-radius:50px; font-size:.78rem; font-weight:800; letter-spacing:1px; white-space:nowrap; }
+
+    /* ─── 45-DAY TIMELINE ─── */
+    .timeline-sec { padding:90px 0; background:var(--bg-lav); position:relative; z-index:0; }
+    .timeline-header { text-align:center; margin-bottom:70px; }
+    .timeline-header .section-h2 { margin-top:14px; }
+
+    .timeline-outer { position:relative; }
+
+    /* Centre spine */
+    .timeline-spine { position:absolute; left:50%; transform:translateX(-50%); top:26px; bottom:26px; width:3px; background:linear-gradient(180deg, var(--p) 0%, var(--teal) 35%, var(--orange) 65%, var(--gold) 100%); border-radius:3px; z-index:1; }
+
+    .timeline-items { display:flex; flex-direction:column; gap:0; position:relative; overflow:hidden; }
+    .tl-item { display:grid; grid-template-columns:1fr 60px 1fr; gap:0; align-items:center; margin-bottom:16px; position:relative; z-index:1; }
+    .tl-item:last-child { margin-bottom:0; }
+
+    /* Left cell */
+    .tl-left { padding-right:36px; text-align:right; }
+    .tl-right { padding-left:36px; text-align:left; }
+    /* Alternate: odd items fill right, even fill left */
+    .tl-item.left-content .tl-left { }
+    .tl-item.left-content .tl-right { visibility:hidden; }
+    .tl-item.right-content .tl-left { visibility:hidden; }
+    .tl-item.right-content .tl-right { }
+
+    /* Node */
+    .tl-node { display:flex; flex-direction:column; align-items:center; position:relative; z-index:2; }
+    .tl-dot { width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Fredoka', cursive; font-size:.95rem; font-weight:700; color:white; border:4px solid white; box-shadow:0 8px 24px rgba(0,0,0,.18); flex-shrink:0; }
+    .tl-connector { width:2px; height:16px; background:rgba(130,87,189,.15); }
+
+    /* Day colour map */
+    .dn1 { background:linear-gradient(135deg, var(--p), var(--pd)); }
+    .dn2 { background:linear-gradient(135deg, var(--pink), #c1458a); }
+    .dn3 { background:linear-gradient(135deg, var(--teal), #038070); }
+    .dn4 { background:linear-gradient(135deg, var(--sky), #0284c7); }
+    .dn5 { background:linear-gradient(135deg, var(--orange), #e86a20); }
+    .dn6 { background:linear-gradient(135deg, var(--coral), #c83637); }
+    .dn7 { background:linear-gradient(135deg, #6340a0, var(--p)); }
+    .dn8 { background:linear-gradient(135deg, var(--gold), var(--goldd)); }
+
+    /* Content card */
+    .tl-card { background:white; border-radius:18px; padding:22px 24px; box-shadow:0 8px 28px rgba(130,87,189,.09); border:1.5px solid var(--pxl); display:inline-block; text-align:left; max-width:380px; transition:transform .3s, box-shadow .3s; position:relative; z-index:2; }
+    .tl-card:hover { transform:translateY(-4px); box-shadow:0 16px 44px rgba(130,87,189,.16); }
+    .tl-day-badge { display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:50px; font-size:.7rem; font-weight:800; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; }
+    .tl-card-title { font-family:'Fredoka', cursive; font-size:1.1rem; color:var(--txt); margin-bottom:6px; letter-spacing:-.3px; }
+    .tl-card-desc { font-size:.85rem; color:var(--muted); line-height:1.6; }
+
+    /* Right-aligned card (for right-content items) */
+    .tl-item.right-content .tl-right { display:flex; justify-content:flex-start; }
+    .tl-item.left-content .tl-left { display:flex; justify-content:flex-end; }
+
+    /* Special: Day 20-45 full-width */
+    .tl-item.full-width { grid-template-columns:1fr; justify-items:center; margin-top:8px; }
+    .tl-item.full-width .tl-node { flex-direction:row; gap:16px; margin-bottom:16px; }
+    .tl-item.full-width .tl-connector { display:none; }
+    .tl-item.full-width .tl-card { max-width:620px; width:100%; text-align:center; }
+    .tl-item.full-width .tl-day-badge { margin:0 auto 10px; }
+
+    /* ─── ALL-ROUND PROMISE STRIP ─── */
+    .promise-sec { padding:80px 0; background:white; }
+    .promise-header { text-align:center; margin-bottom:60px; }
+    .promise-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+    .promise-card { text-align:center; padding:36px 24px; border-radius:22px; background:var(--bg-lav); border:1.5px solid var(--pxl); transition:.3s; }
+    .promise-card:hover { background:white; box-shadow:0 16px 44px rgba(130,87,189,.12); transform:translateY(-4px); border-color:var(--pl); }
+    .pc-icon { font-size:2.4rem; margin-bottom:16px; }
+    .pc-title { font-family:'Fredoka', cursive; font-size:1.1rem; color:var(--txt); margin-bottom:8px; }
+    .pc-desc { font-size:.85rem; color:var(--muted); line-height:1.6; }
+
+    /* ─── CTA BAND ─── */
+    .cta-band { position:relative; overflow:hidden; background:linear-gradient(135deg, var(--pd) 0%, var(--p) 50%, #6340a0 100%); padding:100px 0; text-align:center; }
+    .cta-band::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px); background-size:50px 50px; }
+    .cta-inner { position:relative; z-index:2; }
+    .cta-eyebrow { display:inline-block; background:rgba(245,158,11,.15); border:1px solid rgba(245,158,11,.3); color:#FBBF24; padding:8px 20px; border-radius:4px; font-size:.78rem; font-weight:800; letter-spacing:2px; text-transform:uppercase; margin-bottom:24px; font-family:'Poppins',sans-serif; }
+    .cta-h2 { font-family:'Fredoka', cursive; font-size:clamp(2.2rem,4vw,3.4rem); color:white; margin-bottom:18px; line-height:1.15; }
+    .cta-h2 .gd { background:linear-gradient(90deg,#FBBF24,#F97316); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .cta-desc { font-size:1.05rem; color:rgba(255,255,255,.55); max-width:580px; margin:0 auto 44px; line-height:1.7; }
+    .cta-buttons { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+    .cta-main { display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,var(--gold),var(--orange)); color:#1E1B4B; padding:15px 32px; border-radius:6px; font-weight:800; border:none; cursor:pointer; font-family:'Poppins',sans-serif; box-shadow:0 10px 30px rgba(253,188,2,.35); transition:transform .3s; font-size:1rem; }
+    .cta-main:hover { transform:translateY(-3px); }
+    .cta-sec-btn { display:inline-flex; align-items:center; gap:10px; background:rgba(255,255,255,.1); color:white; padding:15px 32px; border-radius:6px; font-weight:800; border:2px solid rgba(255,255,255,.25); cursor:pointer; font-family:'Poppins',sans-serif; transition:.3s; font-size:1rem; }
+    .cta-sec-btn:hover { background:rgba(255,255,255,.2); transform:translateY(-3px); }
+
+    /* ─── FOOTER ─── */
+    .site-footer { background:linear-gradient(135deg, var(--p), var(--pd)); color:rgba(255,255,255,.65); font-size:.95rem; position:relative; overflow:hidden; }
+    .site-footer::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--gold),var(--orange),var(--pink),var(--p)); }
+    .footer-top { padding:80px 0 60px; }
+    .footer-grid { display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:50px; }
+    .footer-brand img { height:52px; width:auto; margin-bottom:20px; display:block; }
+    .footer-brand p { line-height:1.7; font-size:.9rem; margin-bottom:24px; }
+    .social-links { display:flex; gap:10px; }
+    .social-btn { width:40px; height:40px; border-radius:12px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1); display:flex; align-items:center; justify-content:center; font-size:1rem; color:rgba(255,255,255,.7); transition:.25s; text-decoration:none; }
+    .social-btn:hover { background:var(--p); border-color:var(--p); color:white; transform:translateY(-2px); }
+    .footer-col h5 { color:white; font-family:'Fredoka', cursive; font-size:1.15rem; font-weight:700; margin-bottom:20px; }
+    .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .footer-col ul a { color:rgba(255,255,255,.6); transition:.2s; font-size:.9rem; }
+    .footer-col ul a:hover { color:var(--gold); padding-left:4px; }
+    .footer-contact-item { display:flex; align-items:flex-start; gap:10px; color:rgba(255,255,255,.65); font-size:.9rem; margin-bottom:12px; }
+    .footer-contact-item .icon { flex-shrink:0; margin-top:1px; }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,.07); padding:24px 0; text-align:center; font-size:.84rem; color:rgba(255,255,255,.35); }
+    .footer-bottom span { color:var(--gold); }
+
+    /* ─── POPUP ─── */
+    #tykes-form-overlay { display:none; position:fixed; inset:0; background:rgba(15,10,42,.65); backdrop-filter:blur(6px); z-index:99000; opacity:0; transition:opacity .35s; }
+    #tykes-form-overlay.active { opacity:1; }
+    #tykes-popup-form { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%) scale(.88); z-index:99100; width:min(500px,92vw); max-height:90vh; overflow-y:auto; background:white; border-radius:20px; padding:44px 40px; box-shadow:0 40px 80px rgba(0,0,0,.35); border:2px solid var(--pxl); opacity:0; transition:transform .45s cubic-bezier(.34,1.56,.64,1), opacity .35s; }
+    #tykes-popup-form.active { opacity:1; transform:translate(-50%,-50%) scale(1); }
+    #tykes-popup-form h3 { font-family:'Fredoka', cursive; font-size:1.9rem; color:var(--p); margin-bottom:8px; }
+    #tykes-popup-form > p { font-size:.95rem; color:var(--muted); margin-bottom:24px; }
+    #tykes-popup-close { position:absolute; top:16px; right:20px; background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--muted); }
+    .form-group { margin-bottom:14px; }
+    .form-control { width:100%; padding:13px 16px; border-radius:10px; border:2px solid #eaeaea; outline:none; background:#fafafa; color:var(--txt); font-family:'Poppins',sans-serif; font-size:.95rem; }
+    .form-control:focus { border-color:var(--p); background:white; }
+    select.form-control { appearance:none; }
+    .submit-btn { background:linear-gradient(135deg,var(--p),var(--pd)); color:white; width:100%; padding:16px; border-radius:50px; border:none; font-size:1rem; font-weight:800; cursor:pointer; font-family:'Poppins',sans-serif; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width:1100px) {
+      .page-hero-grid { grid-template-columns:1fr; gap:40px; }
+      .support-cards { grid-template-columns:repeat(2,1fr); }
+      .promise-grid { grid-template-columns:repeat(2,1fr); }
+      .continuous-strip { flex-direction:column; text-align:center; }
+      /* Timeline single column */
+      .timeline-spine { display:none; }
+      .tl-item { grid-template-columns:44px 1fr; gap:0 16px; }
+      .tl-item.left-content .tl-left,
+      .tl-item.right-content .tl-left { display:none; }
+      .tl-item.left-content .tl-right,
+      .tl-item.right-content .tl-right { display:block; visibility:visible; padding-left:0; }
+      .tl-item.right-content .tl-right { justify-content:flex-start; }
+      .tl-node { flex-direction:column; }
+      .tl-card { max-width:100%; width:100%; }
+      .tl-item.full-width { grid-template-columns:44px 1fr; }
+      .tl-item.full-width .tl-node { flex-direction:column; }
+      .tl-item.full-width .tl-card { text-align:left; }
+      .tl-item.full-width .tl-day-badge { margin:0 0 10px; }
+    }
+    @media (max-width:991px) {
+      .main-nav { display:none; }
+      .ham-btn { display:flex; }
+      .mobile-drawer { display:block; pointer-events:none; }
+      .footer-grid { grid-template-columns:1fr 1fr; }
+      #tykes-popup-form,#tykes-form-overlay { display:none !important; }
+    }
+    @media (max-width:600px) {
+      .footer-grid { grid-template-columns:1fr; }
+      .support-cards { grid-template-columns:1fr; }
+      .promise-grid { grid-template-columns:1fr 1fr; }
+      .phase-tabs { flex-wrap:wrap; justify-content:center; }
+      .hsc-grid { grid-template-columns:1fr 1fr; }
+    }
+  </style>
+</head>
+<body class="tykes-home">
+
+  <!-- ─── HEADER ─── -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a href="https://tykes.school/" class="header-logo">
+        <img src="https://tykes.school/wp-content/uploads/2026/03/Tykes-without-Kidzonia-Enterprise-04-scaled-e1774873351568.png" alt="Tykes Early Years">
+      </a>
+      <nav class="main-nav" aria-label="Main Navigation">
+        <div class="nav-item"><a href="https://tykes.school/">Home</a></div>
+        <div class="nav-item">
+          <a href="#">About Us <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="#"><span class="dot" style="background:#7C3AED;"></span> Our Philosophy</a>
+            <a href="#"><span class="dot" style="background:#EC4899;"></span> Our Leadership</a>
+            <a href="#"><span class="dot" style="background:#14B8A6;"></span> Our Learning Spaces</a>
+            <a href="#"><span class="dot" style="background:#F59E0B;"></span> Awards & Recognition</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="#">Curriculum <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="#"><span class="dot" style="background:#7C3AED;"></span> The Tykes Difference</a>
+            <a href="#"><span class="dot" style="background:#F97316;"></span> A Day @ Tykes</a>
+            <a href="#"><span class="dot" style="background:#22C55E;"></span> Our Commitment</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="#">Programs <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="#"><span class="dot" style="background:#EC4899;"></span> Play Group</a>
+            <a href="#"><span class="dot" style="background:#F97316;"></span> Nursery</a>
+            <a href="#"><span class="dot" style="background:#0EA5E9;"></span> Junior KG</a>
+            <a href="#"><span class="dot" style="background:#22C55E;"></span> Senior KG</a>
+            <a href="#"><span class="dot" style="background:#F59E0B;"></span> Daycare</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="#">Corporate Daycare</a></div>
+        <div class="nav-item">
+          <a href="#" class="active">Franchise <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="#"><span class="dot" style="background:#7C3AED;"></span> Why Partner With Us</a>
+            <a href="#"><span class="dot" style="background:#14B8A6;"></span> How We Support You</a>
+            <a href="#"><span class="dot" style="background:#F59E0B;"></span> Franchise Application</a>
+            <a href="#"><span class="dot" style="background:#EC4899;"></span> Franchise FAQs</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="#">Admissions</a></div>
+        <div class="nav-item">
+          <a href="#">Media <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="#"><span class="dot" style="background:#7C3AED;"></span> Gallery</a>
+            <a href="#"><span class="dot" style="background:#F97316;"></span> Newsroom</a>
+            <a href="#"><span class="dot" style="background:#22C55E;"></span> Blogs</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="#">Contact Us <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="#"><span class="dot" style="background:#7C3AED;"></span> Get in Touch</a>
+            <a href="#"><span class="dot" style="background:#14B8A6;"></span> Our Centres</a>
+            <a href="#"><span class="dot" style="background:#F59E0B;"></span> Careers</a>
+          </div>
+        </div>
+      </nav>
+      <div class="header-cta">
+        <button class="btn-enroll" onclick="tykesOpenPopup()">Franchise Enquiry →</button>
+        <button class="ham-btn" id="hamBtn" onclick="toggleDrawer()" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobileDrawer" onclick="handleDrawerClick(event)">
+    <div class="drawer-panel">
+      <div class="drawer-logo"><img src="https://tykes.school/wp-content/uploads/2026/03/Assets-for-website-14-e1774873291651.png" alt="Tykes"></div>
+      <a href="https://tykes.school/" class="mob-link">Home</a>
+      <button class="mob-link" onclick="toggleMobSub('sub-about')">About Us <span>›</span></button>
+      <div class="mob-sub" id="sub-about"><a href="#">Our Philosophy</a><a href="#">Awards</a></div>
+      <button class="mob-link" onclick="toggleMobSub('sub-programs')">Programs <span>›</span></button>
+      <div class="mob-sub" id="sub-programs"><a href="#">Play Group</a><a href="#">Nursery</a><a href="#">Daycare</a></div>
+      <button class="mob-link open" onclick="toggleMobSub('sub-franchise')">Franchise <span>›</span></button>
+      <div class="mob-sub open" id="sub-franchise">
+        <a href="#">Why Partner With Us</a>
+        <a href="#" style="color:var(--teal);font-weight:800;">How We Support You</a>
+        <a href="#">Franchise Application</a>
+        <a href="#">Franchise FAQs</a>
+      </div>
+      <a href="#" class="mob-link">Admissions</a>
+      <button class="mob-enroll-btn" onclick="closeDrawer();tykesOpenPopup();">Franchise Enquiry →</button>
+    </div>
+  </div>
+
+  <!-- ─── BREADCRUMB ─── -->
+  <div class="breadcrumb-bar">
+    <div class="container breadcrumb-inner b-poppins">
+      <a href="https://tykes.school/">Home</a>
+      <span class="sep">›</span>
+      <a href="#">Franchise</a>
+      <span class="sep">›</span>
+      <span class="current">How We Support You</span>
+    </div>
+  </div>
+
+  <!-- ─── PAGE HERO ─── -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero-grid">
+        <div class="page-hero-content">
+          <div class="page-eyebrow b-poppins"><span class="edot"></span> Franchise · Sub-Page 6.2</div>
+          <h1 class="page-h1">From Agreement to Launch in<br><span class="hl">45 Days</span> — and We're<br>With You the Whole Way.</h1>
+          <p class="page-intro b-poppins" style="margin-top:20px;">Support isn't just part of the franchise model — it is the franchise model. Every stage of your journey, from the first site evaluation to your tenth enrolment and beyond, has a Tykes system behind it.</p>
+        </div>
+        <div>
+          <div class="hero-stats-card">
+            <div class="hsc-title h-fredoka">Your Support at a Glance</div>
+            <div class="hsc-grid">
+              <div class="hsc-stat">
+                <span class="hsc-val">45</span>
+                <span class="hsc-lbl b-poppins">Days to Launch</span>
+              </div>
+              <div class="hsc-stat">
+                <span class="hsc-val">3</span>
+                <span class="hsc-lbl b-poppins">Phases of Support</span>
+              </div>
+              <div class="hsc-stat">
+                <span class="hsc-val">14+</span>
+                <span class="hsc-lbl b-poppins">Support Touchpoints</span>
+              </div>
+              <div class="hsc-stat">
+                <span class="hsc-val">∞</span>
+                <span class="hsc-lbl b-poppins">Ongoing Partnership</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SUPPORT PHASES ─── -->
+  <section class="support-sec">
+    <div class="container">
+      <div class="support-header">
+        <div class="section-eyebrow teal b-poppins" style="display:inline-flex;"><span class="edot"></span> Complete Support System</div>
+        <h2 class="section-h2">Three Phases. <span class="hl-teal">Total Coverage.</span></h2>
+      </div>
+
+      <!-- Phase Tabs -->
+      <div class="phase-tabs b-poppins">
+        <button class="phase-tab active" onclick="switchPhase('pre')">🏗️ Pre-Launch</button>
+        <button class="phase-tab" onclick="switchPhase('launch')">🚀 Launch</button>
+        <button class="phase-tab" onclick="switchPhase('post')">📈 Post-Launch</button>
+      </div>
+
+      <!-- PRE-LAUNCH PANEL -->
+      <div class="phase-panel active" id="panel-pre">
+        <p class="phase-intro b-poppins">Before you open your doors, we make sure everything behind them is built to Tykes standards — from the ambience of your classrooms to the readiness of your team.</p>
+        <div class="support-cards">
+          <div class="support-card pl-card-1">
+            <div class="sc-icon">🏛️</div>
+            <h3 class="sc-title h-fredoka">Infrastructure & Ambience Planning</h3>
+            <p class="sc-desc b-poppins">Layout guidance aligned to Tykes brand standards and safety requirements — so every corner of your centre reflects the quality parents expect.</p>
+          </div>
+          <div class="support-card pl-card-2">
+            <div class="sc-icon">🪑</div>
+            <h3 class="sc-title h-fredoka">Equipment & Material Sourcing</h3>
+            <p class="sc-desc b-poppins">Guidance on furniture, classroom equipment, and learning material procurement — approved suppliers, specifications, and setup standards included.</p>
+          </div>
+          <div class="support-card pl-card-3">
+            <div class="sc-icon">📚</div>
+            <h3 class="sc-title h-fredoka">Curriculum Orientation</h3>
+            <p class="sc-desc b-poppins">Full training on lesson planning, learning outcomes, and classroom management — so your academic delivery is aligned to the award-winning Tykes framework from Day 1.</p>
+          </div>
+          <div class="support-card pl-card-4">
+            <div class="sc-icon">👩‍🏫</div>
+            <h3 class="sc-title h-fredoka">Hiring Framework</h3>
+            <p class="sc-desc b-poppins">Job descriptions, interview guidance, and teacher training preparation — so you recruit educators who are aligned to your centre's culture and capable of delivering from the start.</p>
+          </div>
+          <div class="support-card pl-card-5">
+            <div class="sc-icon">📋</div>
+            <h3 class="sc-title h-fredoka">Regulatory Guidance</h3>
+            <p class="sc-desc b-poppins">Documentation and compliance support for operating a preschool in your state — we help you navigate the regulatory landscape so you open with full legal clarity.</p>
+          </div>
+          <div class="support-card" style="background:linear-gradient(135deg,#fff5fb,#ffe8f5);border-color:rgba(221,91,157,.15);">
+            <div class="support-card-bar" style="background:var(--pink);"></div>
+            <div class="sc-icon">🤝</div>
+            <h3 class="sc-title h-fredoka">Franchise Onboarding</h3>
+            <p class="sc-desc b-poppins">A structured induction into the Tykes ecosystem — brand values, operational standards, and the systems every franchise partner must know before Day 1.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- LAUNCH PANEL -->
+      <div class="phase-panel" id="panel-launch">
+        <p class="phase-intro b-poppins">Launch month is the most critical window for any new centre. We deploy dedicated support across marketing, branding, admissions, and operations to make your opening month count.</p>
+        <div class="support-cards">
+          <div class="support-card la-card-1">
+            <div class="sc-icon">🌐</div>
+            <h3 class="sc-title h-fredoka">Marketing & Online Presence Activation</h3>
+            <p class="sc-desc b-poppins">Google Business setup, social media activation, and local digital presence — your centre goes live online the moment your doors open.</p>
+          </div>
+          <div class="support-card la-card-2">
+            <div class="sc-icon">🎨</div>
+            <h3 class="sc-title h-fredoka">Preschool Branding Implementation</h3>
+            <p class="sc-desc b-poppins">Signage, classroom branding, uniforms, and parent communication materials — every touchpoint your community sees reflects the Tykes brand standard.</p>
+          </div>
+          <div class="support-card la-card-3">
+            <div class="sc-icon">📣</div>
+            <h3 class="sc-title h-fredoka">Admissions Campaign Support</h3>
+            <p class="sc-desc b-poppins">Digital creatives, enquiry management scripts, and conversion guidance — structured tools to turn interest into enrolments during the critical launch window.</p>
+          </div>
+          <div class="support-card la-card-4">
+            <div class="sc-icon">🏫</div>
+            <h3 class="sc-title h-fredoka">Classroom Readiness Execution</h3>
+            <p class="sc-desc b-poppins">Supervised setup of all learning zones, material placement, and display boards — your classrooms are audit-ready before the first child walks in.</p>
+          </div>
+          <div class="support-card la-card-5">
+            <div class="sc-icon">🎉</div>
+            <h3 class="sc-title h-fredoka">Inauguration Support</h3>
+            <p class="sc-desc b-poppins">Launch event planning and community activation guidance — create a memorable opening day that introduces your centre to the neighbourhood and builds early trust.</p>
+          </div>
+          <div class="support-card" style="background:linear-gradient(135deg,#f5f0ff,#ede9ff);border-color:rgba(130,87,189,.15);">
+            <div class="sc-icon">📞</div>
+            <h3 class="sc-title h-fredoka">Parent Communication Toolkit</h3>
+            <p class="sc-desc b-poppins">Ready-to-use communication templates, fee collection scripts, and parent onboarding guides — so every family interaction from day one reflects the Tykes standard.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- POST-LAUNCH PANEL -->
+      <div class="phase-panel" id="panel-post">
+        <p class="phase-intro b-poppins">Our support doesn't end at launch. Ongoing guidance across academics, operations, marketing, and growth keeps your centre on a continuous improvement trajectory.</p>
+        <div class="support-cards">
+          <div class="support-card po-card-1">
+            <div class="sc-icon">📖</div>
+            <h3 class="sc-title h-fredoka">Ongoing Academic Guidance</h3>
+            <p class="sc-desc b-poppins">Monthly curriculum updates, lesson plan support, and child observation frameworks — so your academic delivery stays fresh, relevant, and aligned to outcomes.</p>
+          </div>
+          <div class="support-card po-card-2">
+            <div class="sc-icon">⚙️</div>
+            <h3 class="sc-title h-fredoka">Operational Support</h3>
+            <p class="sc-desc b-poppins">Periodic reviews, compliance checks, and process improvement guidance — keeping your centre running at the standard parents chose you for.</p>
+          </div>
+          <div class="support-card po-card-3">
+            <div class="sc-icon">📊</div>
+            <h3 class="sc-title h-fredoka">Marketing Consultation</h3>
+            <p class="sc-desc b-poppins">Ongoing digital strategy, seasonal campaign support, and content guidance — so your centre stays visible and continues driving enquiries beyond launch month.</p>
+          </div>
+          <div class="support-card po-card-4">
+            <div class="sc-icon">📈</div>
+            <h3 class="sc-title h-fredoka">Growth Advisory</h3>
+            <p class="sc-desc b-poppins">When you're ready to open your second centre, we're already building the pathway. Franchisees who perform have a clear, supported route to multi-centre expansion.</p>
+          </div>
+          <div class="support-card" style="background:linear-gradient(135deg,#fef9e7,#fffbf0);border-color:rgba(253,188,2,.2);">
+            <div class="sc-icon">⭐</div>
+            <h3 class="sc-title h-fredoka">Annual Centre Review</h3>
+            <p class="sc-desc b-poppins">A comprehensive yearly performance and quality audit — covering academics, operations, parent satisfaction, and brand standards. Your roadmap for the year ahead, built together.</p>
+          </div>
+          <div class="support-card" style="background:linear-gradient(135deg,#fff5fb,#ffe8f5);border-color:rgba(221,91,157,.15);">
+            <div class="sc-icon">👥</div>
+            <h3 class="sc-title h-fredoka">Franchisee Community</h3>
+            <p class="sc-desc b-poppins">Access to an active network of Tykes and Kidzonia franchise partners — shared learnings, seasonal best practices, and a peer group that understands the journey you're on.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Continuous support strip -->
+      <div class="continuous-strip">
+        <div class="cs-icon">🤝</div>
+        <div class="cs-body">
+          <h3 class="cs-title h-fredoka">Continuous Partnership — Not a One-Time Handover</h3>
+          <p class="cs-desc b-poppins">Most franchise models give you a manual and step back. The Tykes model is built on ongoing engagement — because your success is how we build the brand, one centre at a time.</p>
+        </div>
+        <div class="cs-badge b-poppins">3-Year Franchise Term</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── 45-DAY TIMELINE ─── -->
+  <section class="timeline-sec">
+    <div class="container">
+      <div class="timeline-header">
+        <div class="section-eyebrow teal b-poppins" style="display:inline-flex;"><span class="edot"></span> The 45-Day Tykes Journey</div>
+        <h2 class="section-h2" style="margin-top:14px;">Agreement to Opening Day —<br><span class="hl-teal">Every Milestone Mapped.</span></h2>
+      </div>
+
+      <div class="timeline-outer">
+        <div class="timeline-items">
+        <div class="timeline-spine"></div>
+
+          <!-- Day 1 — left -->
+          <div class="tl-item left-content">
+            <div class="tl-left">
+              <div class="tl-card">
+                <div class="tl-day-badge b-poppins" style="background:var(--pxl);color:var(--p);">Day 1</div>
+                <h3 class="tl-card-title h-fredoka">Strategic Consultation</h3>
+                <p class="tl-card-desc b-poppins">Investment alignment and operational expectation clarity. This is where your partnership begins — understanding your territory, goals, and readiness.</p>
+              </div>
+            </div>
+            <div class="tl-node">
+              <div class="tl-dot dn1">1</div>
+              <div class="tl-connector"></div>
+            </div>
+            <div class="tl-right"></div>
+          </div>
+
+          <!-- Day 5 — right -->
+          <div class="tl-item right-content">
+            <div class="tl-left"></div>
+            <div class="tl-node">
+              <div class="tl-connector"></div>
+              <div class="tl-dot dn2">5</div>
+              <div class="tl-connector"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-card">
+                <div class="tl-day-badge b-poppins" style="background:#fff5fb;color:var(--pink);">Day 5</div>
+                <h3 class="tl-card-title h-fredoka">Evaluation & Confirmation</h3>
+                <p class="tl-card-desc b-poppins">Application review and partnership approval. Our team assesses your profile against the Tykes franchisee criteria and confirms the partnership pathway.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Day 10 — left -->
+          <div class="tl-item left-content">
+            <div class="tl-left">
+              <div class="tl-card">
+                <div class="tl-day-badge b-poppins" style="background:#edfdf8;color:var(--teal);">Day 10</div>
+                <h3 class="tl-card-title h-fredoka">Agreement & Onboarding</h3>
+                <p class="tl-card-desc b-poppins">Formal partnership initiation and onboarding process commences. Your territory is assigned and the institutional transfer begins.</p>
+              </div>
+            </div>
+            <div class="tl-node">
+              <div class="tl-connector"></div>
+              <div class="tl-dot dn3">10</div>
+              <div class="tl-connector"></div>
+            </div>
+            <div class="tl-right"></div>
+          </div>
+
+          <!-- Day 15 — right -->
+          <div class="tl-item right-content">
+            <div class="tl-left"></div>
+            <div class="tl-node">
+              <div class="tl-connector"></div>
+              <div class="tl-dot dn4">15</div>
+              <div class="tl-connector"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-card">
+                <div class="tl-day-badge b-poppins" style="background:#e0f2fe;color:var(--sky);">Day 15</div>
+                <h3 class="tl-card-title h-fredoka">Site Finalisation</h3>
+                <p class="tl-card-desc b-poppins">Premises evaluation aligned to Tykes infrastructure benchmarks. Can be completed within 6 months of onboarding to allow flexibility in property selection.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Day 16 — left -->
+          <div class="tl-item left-content">
+            <div class="tl-left">
+              <div class="tl-card">
+                <div class="tl-day-badge b-poppins" style="background:#fff4ed;color:var(--orange);">Day 16</div>
+                <h3 class="tl-card-title h-fredoka">Marketing Activation</h3>
+                <p class="tl-card-desc b-poppins">Digital presence setup and structured admissions planning begins. Your centre goes live online and the local market starts hearing about you.</p>
+              </div>
+            </div>
+            <div class="tl-node">
+              <div class="tl-connector"></div>
+              <div class="tl-dot dn5">16</div>
+              <div class="tl-connector"></div>
+            </div>
+            <div class="tl-right"></div>
+          </div>
+
+          <!-- Day 18 — right -->
+          <div class="tl-item right-content">
+            <div class="tl-left"></div>
+            <div class="tl-node">
+              <div class="tl-connector"></div>
+              <div class="tl-dot dn6">18</div>
+              <div class="tl-connector"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-card">
+                <div class="tl-day-badge b-poppins" style="background:#fff0f0;color:var(--coral);">Day 18</div>
+                <h3 class="tl-card-title h-fredoka">Hiring & Training Rollout</h3>
+                <p class="tl-card-desc b-poppins">Recruitment and training aligned to Tykes brand standards. Your team begins the orientation that prepares them to deliver the Tykes experience.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Day 20–45 — full width -->
+          <div class="tl-item full-width">
+            <div class="tl-node">
+              <div class="tl-connector"></div>
+              <div class="tl-dot dn7" style="width:64px;height:64px;font-size:.78rem;">20–45</div>
+            </div>
+            <div class="tl-card" style="border-color:rgba(130,87,189,.2);border-width:2px;">
+              <div class="tl-day-badge b-poppins" style="background:var(--pxl);color:var(--p);">Days 20 – 45</div>
+              <h3 class="tl-card-title h-fredoka" style="font-size:1.3rem;">Centre Development</h3>
+              <p class="tl-card-desc b-poppins" style="max-width:520px;margin:0 auto;">Classroom setup, furniture installation, branding implementation, technology system setup, and supervised readiness checks. This is where your centre transforms from a space into a Tykes institution.</p>
+            </div>
+          </div>
+
+          <!-- Day 45 — full width launch -->
+          <div class="tl-item full-width" style="margin-top:16px;">
+            <div class="tl-node">
+              <div class="tl-connector"></div>
+              <div class="tl-dot dn8" style="width:72px;height:72px;font-size:1rem;color:var(--txt);">🎉</div>
+            </div>
+            <div class="tl-card" style="background:linear-gradient(135deg,#fef9e7,#fffbf0);border-color:rgba(253,188,2,.3);border-width:2px;">
+              <div class="tl-day-badge b-poppins" style="background:rgba(253,188,2,.15);color:var(--goldd);">Day 45</div>
+              <h3 class="tl-card-title h-fredoka" style="font-size:1.4rem;color:var(--txt);">Centre Launch 🏫</h3>
+              <p class="tl-card-desc b-poppins" style="max-width:520px;margin:0 auto;font-weight:600;color:var(--txt);">Centre operations and admissions are fully activated. Your doors open to your community — backed by a brand parents already trust, and a system built to help you thrive from day one.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── OUR PROMISE ─── -->
+  <section class="promise-sec">
+    <div class="container">
+      <div class="promise-header">
+        <div class="section-eyebrow b-poppins" style="display:inline-flex;"><span class="edot"></span> Our Promise to You</div>
+        <h2 class="section-h2" style="margin-top:14px;">What Every Tykes Franchisee<br><span class="hl">Can Count On</span></h2>
+      </div>
+      <div class="promise-grid">
+        <div class="promise-card">
+          <div class="pc-icon">⚡</div>
+          <h3 class="pc-title h-fredoka">Speed Without Compromise</h3>
+          <p class="pc-desc b-poppins">45 days from agreement to launch — structured, supervised, and executed to quality standards without shortcuts.</p>
+        </div>
+        <div class="promise-card">
+          <div class="pc-icon">🎯</div>
+          <h3 class="pc-title h-fredoka">Dedicated Partnership Team</h3>
+          <p class="pc-desc b-poppins">A dedicated point of contact at every stage — not a ticketing system. Real people who know your centre and your market.</p>
+        </div>
+        <div class="promise-card">
+          <div class="pc-icon">📐</div>
+          <h3 class="pc-title h-fredoka">Standards That Protect You</h3>
+          <p class="pc-desc b-poppins">Every Tykes standard exists to protect your brand, your children, and your reputation. Compliance is built into the support, not added later.</p>
+        </div>
+        <div class="promise-card">
+          <div class="pc-icon">🌱</div>
+          <h3 class="pc-title h-fredoka">Built for the Long Term</h3>
+          <p class="pc-desc b-poppins">A 3-year renewable partnership aligned to your growth — not a transactional relationship that ends at launch day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA BAND ─── -->
+  <section class="cta-band">
+    <div class="container cta-inner">
+      <div class="cta-eyebrow b-poppins">Franchise Enquiries Open · Limited Territories</div>
+      <h2 class="cta-h2">Ready to Experience<br><span class="gd">the Tykes System?</span></h2>
+      <p class="cta-desc b-poppins">Submit your enquiry and our franchise partnerships team will walk you through every stage of how we support your journey — from Day 1 to Day 45 and beyond.</p>
+      <div class="cta-buttons">
+        <button class="cta-main b-poppins" onclick="tykesOpenPopup()">Apply for Franchise →</button>
+        <button class="cta-sec-btn b-poppins" onclick="tykesOpenPopup()">Request a Callback</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand b-poppins">
+            <img src="https://tykes.school/wp-content/uploads/2026/03/Tykes-Kidzonia-Logo.png" alt="Tykes">
+            <p>Built on the academic foundation and operational experience of Kidzonia International Preschools.</p>
+            <div class="social-links">
+              <a href="#" class="social-btn">📸</a>
+              <a href="#" class="social-btn">📘</a>
+              <a href="#" class="social-btn">▶</a>
+            </div>
+          </div>
+          <div class="footer-col b-poppins">
+            <h5>Programs</h5>
+            <ul>
+              <li><a href="#">Play Group</a></li>
+              <li><a href="#">Nursery</a></li>
+              <li><a href="#">Junior KG</a></li>
+              <li><a href="#">Senior KG</a></li>
+              <li><a href="#">Daycare</a></li>
+            </ul>
+          </div>
+          <div class="footer-col b-poppins">
+            <h5>Franchise</h5>
+            <ul>
+              <li><a href="#">Why Partner With Us</a></li>
+              <li><a href="#" style="color:var(--gold);">How We Support You</a></li>
+              <li><a href="#">Franchise Application</a></li>
+              <li><a href="#">Franchise FAQs</a></li>
+            </ul>
+          </div>
+          <div class="footer-col b-poppins">
+            <h5>Get In Touch</h5>
+            <div class="footer-contact-item"><span class="icon">📞</span><a href="tel:8400966400" style="color:rgba(255,255,255,.65);">8400-966-400</a></div>
+            <div class="footer-contact-item"><span class="icon">✉️</span><a href="mailto:info@tykes.school" style="color:rgba(255,255,255,.65);">info@tykes.school</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom b-poppins">
+      <div class="container"><p>© 2026 <span>Tykes Early Years</span> — A Kidzonia Enterprise.</p></div>
+    </div>
+  </footer>
+
+  <!-- ─── POPUP ─── -->
+  <div id="tykes-form-overlay" onclick="tykesClosePopup()"></div>
+  <div id="tykes-popup-form" role="dialog" aria-modal="true">
+    <button id="tykes-popup-close" onclick="tykesClosePopup()" aria-label="Close">✕</button>
+    <h3>Franchise Enquiry 🏛️</h3>
+    <p>Fill in your details and our partnerships team will get in touch within 48 hours.</p>
+    <form onsubmit="return false;">
+      <div class="form-group"><input type="text" class="form-control b-poppins" placeholder="Your Full Name *" required></div>
+      <div class="form-group"><input type="tel" class="form-control b-poppins" placeholder="Mobile Number *" required></div>
+      <div class="form-group"><input type="email" class="form-control b-poppins" placeholder="Email Address *" required></div>
+      <div class="form-group"><input type="text" class="form-control b-poppins" placeholder="City / Location *" required></div>
+      <div class="form-group">
+        <select class="form-control b-poppins" required>
+          <option value="" disabled selected>Investment Readiness *</option>
+          <option>₹30L – ₹50L</option>
+          <option>₹50L – ₹75L</option>
+          <option>₹75L+</option>
+          <option>Need to Discuss</option>
+        </select>
+      </div>
+      <button type="submit" class="submit-btn b-poppins" onclick="tykesClosePopup()">Submit Enquiry →</button>
+    </form>
+  </div>
+
+  <script>
+    /* HEADER SCROLL */
+    var h = document.getElementById('siteHeader');
+    window.addEventListener('scroll', function(){ h.classList.toggle('scrolled', window.scrollY > 40); });
+
+    /* MOBILE DRAWER */
+    function toggleDrawer(){
+      var d=document.getElementById('mobileDrawer'), b=document.getElementById('hamBtn');
+      var open=d.classList.toggle('open'); b.classList.toggle('open',open);
+      document.body.style.overflow=open?'hidden':''; d.style.pointerEvents=open?'all':'none';
+    }
+    function closeDrawer(){
+      document.getElementById('mobileDrawer').classList.remove('open');
+      document.getElementById('hamBtn').classList.remove('open');
+      document.body.style.overflow='';
+    }
+    function handleDrawerClick(e){ if(e.target===document.getElementById('mobileDrawer')) closeDrawer(); }
+    function toggleMobSub(id){ document.getElementById(id).classList.toggle('open'); }
+
+    /* POPUP */
+    function tykesOpenPopup(){
+      if(window.innerWidth<=991) return;
+      var ov=document.getElementById('tykes-form-overlay'), pop=document.getElementById('tykes-popup-form');
+      ov.style.display='block'; pop.style.display='block'; pop.offsetHeight;
+      requestAnimationFrame(function(){ ov.classList.add('active'); pop.classList.add('active'); });
+      document.body.style.overflow='hidden';
+    }
+    function tykesClosePopup(){
+      var ov=document.getElementById('tykes-form-overlay'), pop=document.getElementById('tykes-popup-form');
+      ov.classList.remove('active'); pop.classList.remove('active');
+      setTimeout(function(){ ov.style.display='none'; pop.style.display='none'; document.body.style.overflow=''; },400);
+    }
+
+    /* PHASE TABS */
+    function switchPhase(phase) {
+      // Update tabs
+      document.querySelectorAll('.phase-tab').forEach(function(t){ t.classList.remove('active'); });
+      event.target.classList.add('active');
+      // Update panels
+      document.querySelectorAll('.phase-panel').forEach(function(p){ p.classList.remove('active'); });
+      document.getElementById('panel-' + phase).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>

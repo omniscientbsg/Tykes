@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Franchise Application – Take the First Step | Tykes Early Years</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ─── BRAND TOKENS ─── */
+    :root {
+      --p: #8257bd;
+      --pd: #6d46a8;
+      --pl: #a884e3;
+      --pxl: #f3edff;
+      --gold: #fdbc02;
+      --goldd: #e0a800;
+      --orange: #fc8738;
+      --pink: #dd5b9d;
+      --coral: #e44a4b;
+      --teal: #05a28d;
+      --sky: #0EA5E9;
+      --green: #22C55E;
+      --white: #FFFFFF;
+      --txt: #1E1B4B;
+      --muted: #6B7280;
+      --bg-cream: #FFFBF0;
+      --bg-mint: #F0FDF8;
+      --bg-blush: #FFF5FB;
+      --bg-lav: #F9F7FF;
+    }
+
+    /* ─── RESET ─── */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body.tykes-home { font-family: 'Poppins', sans-serif; background: var(--bg-lav); color: var(--txt); overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    .b-poppins { font-family: 'Poppins', sans-serif; }
+    .h-fredoka { font-family: 'Fredoka', cursive; }
+
+    /* ─── KEYFRAMES ─── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+
+    /* ─── HEADER ─── */
+    .site-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 9000; transition: all .4s ease; }
+    .site-header.scrolled .header-inner { background: rgba(255,255,255,.97); backdrop-filter: blur(20px); box-shadow: 0 4px 30px rgba(124,58,237,.12); padding: 10px 30px; border-bottom: none; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; position: relative; padding: 18px 30px; background: rgba(255,255,255,.85); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(124,58,237,.08); transition: all .4s ease; }
+    .header-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .header-logo img { height: 46px; width: auto; display: block; }
+    .main-nav { display: flex; align-items: center; gap: 4px; position: absolute; left: 50%; transform: translateX(-50%); }
+    .nav-item { position: relative; }
+    .nav-item>a { display: flex; align-items: center; gap: 5px; padding: 8px 14px; border-radius: 50px; font-weight: 700; font-size: .92rem; color: var(--txt); transition: .25s; white-space: nowrap; }
+    .nav-item>a:hover, .nav-item>a.active { color: var(--p); background: var(--pxl); }
+    .nav-item>a .chevron { display: inline-block; width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.5; transition: transform .3s; }
+    .nav-item:hover>a .chevron { transform: rotate(180deg); }
+    .nav-dropdown { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(8px); background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(124,58,237,.18); border: 1px solid rgba(124,58,237,.1); padding: 12px; min-width: 200px; opacity: 0; pointer-events: none; visibility: hidden; transition: opacity .25s, transform .25s; }
+    .nav-item:hover .nav-dropdown { opacity: 1; pointer-events: all; visibility: visible; transform: translateX(-50%) translateY(0); }
+    .nav-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; font-size: .9rem; font-weight: 600; color: var(--txt); transition: .2s; white-space: nowrap; }
+    .nav-dropdown a:hover { background: var(--pxl); color: var(--p); }
+    .nav-dropdown a .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .header-cta { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .btn-enroll { background: linear-gradient(135deg, var(--p), var(--pd)); color: white; padding: 10px 22px; border-radius: 50px; font-weight: 800; font-size: .9rem; border: none; cursor: pointer; font-family: inherit; transition: .3s; box-shadow: 0 6px 20px rgba(124,58,237,.35); }
+    .btn-enroll:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(124,58,237,.45); }
+    .ham-btn { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 6px; z-index: 9100; }
+    .ham-btn span { display: block; width: 24px; height: 2.5px; background: var(--p); border-radius: 4px; transition: .35s; }
+    .ham-btn.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .ham-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .ham-btn.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+    .mobile-drawer { display: none; position: fixed; inset: 0; z-index: 9050; background: rgba(30,27,75,.55); backdrop-filter: blur(6px); opacity: 0; transition: opacity .35s; }
+    .mobile-drawer.open { opacity: 1; pointer-events: all; }
+    .drawer-panel { position: absolute; top: 0; right: -340px; width: 320px; height: 100%; background: white; box-shadow: -20px 0 50px rgba(0,0,0,.18); padding: 28px 24px; overflow-y: auto; transition: right .4s cubic-bezier(.4,0,.2,1); display: flex; flex-direction: column; gap: 4px; }
+    .mobile-drawer.open .drawer-panel { right: 0; }
+    .drawer-logo { margin-bottom: 24px; }
+    .drawer-logo img { height: 38px; }
+    .mob-link { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-radius: 14px; font-weight: 700; font-size: 1rem; color: var(--txt); cursor: pointer; transition: .2s; border: none; background: none; width: 100%; text-align: left; font-family: inherit; }
+    .mob-link:hover, .mob-link.open { background: var(--pxl); color: var(--p); }
+    .mob-sub { padding-left: 16px; display: none; flex-direction: column; gap: 2px; }
+    .mob-sub.open { display: flex; }
+    .mob-sub a { padding: 9px 12px; border-radius: 10px; font-size: .9rem; font-weight: 600; color: var(--muted); display: block; }
+    .mob-sub a:hover { color: var(--p); background: var(--pxl); }
+    .mob-enroll-btn { margin-top: 20px; background: linear-gradient(135deg, var(--p), var(--pd)); color: white; width: 100%; padding: 14px; border-radius: 50px; border: none; font-weight: 800; font-size: 1rem; cursor: pointer; font-family: inherit; }
+
+    /* ─── BREADCRUMB ─── */
+    .breadcrumb-bar { background: white; border-bottom: 1px solid #f0eeff; padding: 14px 0; margin-top: 82px; }
+    .breadcrumb-inner { display: flex; align-items: center; gap: 8px; font-size: .82rem; font-weight: 600; color: var(--muted); }
+    .breadcrumb-inner a { color: var(--muted); transition: .2s; }
+    .breadcrumb-inner a:hover { color: var(--p); }
+    .breadcrumb-inner .sep { color: #d1d5db; }
+    .breadcrumb-inner .current { color: var(--p); }
+
+    /* ─── PAGE HERO ─── */
+    .app-hero {
+      padding: 72px 0 80px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #EDE9FF 0%, #F5F2FF 40%, #FFF8F0 70%, #FFFBF0 100%);
+    }
+    .app-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 0% 50%, rgba(130,87,189,0.14) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 50% at 100% 10%, rgba(253,188,2,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 50% at 70% 100%, rgba(5,162,141,0.08) 0%, transparent 50%);
+      pointer-events: none; z-index: 1;
+    }
+    .app-hero-inner { position: relative; z-index: 2; text-align: center; animation: fadeUp .7s ease both; }
+    .app-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: white; padding: 6px 16px; border-radius: 50px; font-size: .72rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--p); margin-bottom: 20px; box-shadow: 0 4px 15px rgba(130,87,189,.08); }
+    .app-eyebrow .edot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; display: inline-block; }
+    .app-h1 { font-family: 'Fredoka', cursive; font-size: clamp(2.2rem, 4vw, 3.4rem); color: var(--txt); line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; }
+    .app-h1 .hl { color: var(--p); position: relative; display: inline-block; }
+    .app-h1 .hl::after { content: ''; position: absolute; bottom: 4px; left: 0; width: 100%; height: 6px; background: var(--gold); border-radius: 4px; z-index: -1; }
+    .app-subhead { font-size: 1.05rem; color: var(--muted); line-height: 1.65; max-width: 640px; margin: 0 auto; }
+
+    /* ─── TRUST STRIP ─── */
+    .trust-strip { background: white; border-top: 1px solid #f0eeff; border-bottom: 1px solid #f0eeff; padding: 22px 0; }
+    .trust-inner { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
+    .trust-item { display: flex; align-items: center; gap: 10px; }
+    .trust-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .trust-item-text { font-size: .82rem; font-weight: 700; color: var(--txt); }
+    .trust-item-text span { display: block; font-weight: 500; color: var(--muted); font-size: .76rem; }
+
+    /* ─── MAIN CONTENT GRID ─── */
+    .app-section { padding: 72px 0 96px; }
+    .app-grid { display: grid; grid-template-columns: 1fr 400px; gap: 56px; align-items: start; }
+
+    /* ─── APPLICATION FORM ─── */
+    .app-form-wrap { background: white; border-radius: 28px; padding: 52px 48px; box-shadow: 0 24px 60px rgba(130,87,189,.12); border: 1px solid rgba(130,87,189,.08); position: relative; overflow: hidden; }
+    .app-form-wrap::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--gold), var(--orange), var(--pink), var(--p)); }
+    .form-section-title { font-family: 'Fredoka', cursive; font-size: 1.6rem; color: var(--txt); margin-bottom: 6px; }
+    .form-section-desc { font-size: .9rem; color: var(--muted); margin-bottom: 36px; line-height: 1.6; }
+
+    .form-group { margin-bottom: 18px; }
+    .form-label { display: block; font-size: .82rem; font-weight: 700; color: var(--txt); margin-bottom: 7px; letter-spacing: .2px; }
+    .form-label .req { color: var(--coral); margin-left: 2px; }
+    .form-control {
+      width: 100%; padding: 14px 18px; border-radius: 12px;
+      border: 2px solid #eaeaea; outline: none;
+      background: #fafafa; color: var(--txt);
+      font-family: 'Poppins', sans-serif; font-size: .93rem;
+      transition: border-color .25s, background .25s, box-shadow .25s;
+    }
+    .form-control:focus { border-color: var(--p); background: white; box-shadow: 0 0 0 4px rgba(130,87,189,.08); }
+    .form-control::placeholder { color: #bbb; }
+    select.form-control { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; }
+    textarea.form-control { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-divider { border: none; border-top: 1.5px solid #f0eeff; margin: 28px 0; }
+    .form-section-heading { font-family: 'Fredoka', cursive; font-size: 1.1rem; color: var(--p); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+    .form-section-heading::after { content: ''; flex: 1; height: 1.5px; background: linear-gradient(90deg, var(--pxl), transparent); }
+    .submit-btn-wrap { margin-top: 32px; }
+    .submit-btn {
+      width: 100%; padding: 17px; border-radius: 50px;
+      background: linear-gradient(135deg, var(--p), var(--pd));
+      color: white; font-weight: 800; font-size: 1rem;
+      border: none; cursor: pointer; font-family: 'Poppins', sans-serif;
+      box-shadow: 0 10px 30px rgba(130,87,189,.35);
+      transition: transform .3s, box-shadow .3s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(130,87,189,.45); }
+    .form-note { font-size: .78rem; color: var(--muted); text-align: center; margin-top: 14px; line-height: 1.5; }
+    .form-note strong { color: var(--p); }
+
+    /* ─── SIDEBAR: FAQ ─── */
+    .faq-sidebar { position: sticky; top: 110px; }
+    .faq-sidebar-header { margin-bottom: 28px; }
+    .faq-sidebar-eyebrow { font-size: .72rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
+    .faq-sidebar-title { font-family: 'Fredoka', cursive; font-size: 1.8rem; color: var(--txt); line-height: 1.15; }
+
+    .faq-list { display: flex; flex-direction: column; gap: 10px; }
+    .faq-item { background: white; border-radius: 18px; border: 1.5px solid #f0eeff; overflow: hidden; transition: box-shadow .25s; }
+    .faq-item:hover { box-shadow: 0 8px 24px rgba(130,87,189,.10); }
+    .faq-q {
+      width: 100%; text-align: left; padding: 18px 20px;
+      background: none; border: none; cursor: pointer;
+      font-family: 'Poppins', sans-serif; font-size: .88rem; font-weight: 700;
+      color: var(--txt); display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      line-height: 1.4; transition: color .2s;
+    }
+    .faq-item.open .faq-q { color: var(--p); }
+    .faq-icon { width: 22px; height: 22px; border-radius: 50%; background: var(--pxl); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background .25s, transform .3s; }
+    .faq-icon svg { width: 12px; height: 12px; stroke: var(--p); stroke-width: 3; fill: none; transition: transform .3s; }
+    .faq-item.open .faq-icon { background: var(--p); }
+    .faq-item.open .faq-icon svg { stroke: white; transform: rotate(45deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .4s cubic-bezier(.4,0,.2,1), padding .3s; padding: 0 20px; }
+    .faq-item.open .faq-a { max-height: 300px; padding: 0 20px 18px; }
+    .faq-a p { font-size: .84rem; color: var(--muted); line-height: 1.7; }
+
+    /* ─── CTA BAND ─── */
+    .cta-band { position: relative; overflow: hidden; background: linear-gradient(135deg, var(--pd) 0%, var(--p) 50%, #6340a0 100%); padding: 100px 0; text-align: center; }
+    .cta-band::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px); background-size: 50px 50px; }
+    .cta-inner { position: relative; z-index: 2; }
+    .cta-eyebrow { display: inline-block; background: rgba(245,158,11,.15); border: 1px solid rgba(245,158,11,.3); color: #FBBF24; padding: 8px 20px; border-radius: 4px; font-size: .78rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; font-family: 'Poppins',sans-serif; }
+    .cta-h2 { font-family: 'Fredoka', cursive; font-size: clamp(2.2rem, 4vw, 3.4rem); color: white; margin-bottom: 18px; line-height: 1.15; }
+    .cta-h2 .gd { background: linear-gradient(90deg, #FBBF24, #F97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .cta-desc { font-size: 1.05rem; color: rgba(255,255,255,.55); max-width: 580px; margin: 0 auto 44px; line-height: 1.7; font-family: 'Poppins', sans-serif; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .cta-main { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, var(--gold), var(--orange)); color: #1E1B4B; padding: 15px 32px; border-radius: 6px; font-weight: 800; border: none; cursor: pointer; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(253,188,2,.35); transition: transform .3s; font-size: 1rem; }
+    .cta-main:hover { transform: translateY(-3px); }
+
+    /* ─── FOOTER ─── */
+    .site-footer { background: linear-gradient(135deg, var(--p), var(--pd)); color: rgba(255,255,255,.65); font-size: .95rem; position: relative; overflow: hidden; }
+    .site-footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--gold), var(--orange), var(--pink), var(--p)); }
+    .footer-top { padding: 80px 0 60px; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 50px; }
+    .footer-brand img { height: 52px; width: auto; margin-bottom: 20px; display: block; }
+    .footer-brand p { line-height: 1.7; font-size: .9rem; margin-bottom: 24px; }
+    .social-links { display: flex; gap: 10px; }
+    .social-btn { width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center; font-size: 1rem; color: rgba(255,255,255,.7); transition: .25s; text-decoration: none; }
+    .social-btn:hover { background: var(--p); border-color: var(--p); color: white; transform: translateY(-2px); }
+    .footer-col h5 { color: white; font-family: 'Fredoka', cursive; font-size: 1.15rem; font-weight: 700; margin-bottom: 20px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { color: rgba(255,255,255,.6); transition: .2s; font-size: .9rem; }
+    .footer-col ul a:hover { color: var(--gold); padding-left: 4px; }
+    .footer-contact-item { display: flex; align-items: flex-start; gap: 10px; color: rgba(255,255,255,.65); font-size: .9rem; margin-bottom: 12px; }
+    .footer-contact-item .icon { flex-shrink: 0; margin-top: 1px; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.07); padding: 24px 0; text-align: center; font-size: .84rem; color: rgba(255,255,255,.35); }
+    .footer-bottom span { color: var(--gold); }
+
+    /* ─── POPUP ─── */
+    #tykes-form-overlay { display: none; position: fixed; inset: 0; background: rgba(15,10,42,.65); backdrop-filter: blur(6px); z-index: 99000; opacity: 0; transition: opacity .35s; }
+    #tykes-form-overlay.active { opacity: 1; }
+    #tykes-popup-form { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(.88); z-index: 99100; width: min(500px,92vw); max-height: 90vh; overflow-y: auto; background: white; border-radius: 20px; padding: 44px 40px; box-shadow: 0 40px 80px rgba(0,0,0,.35); border: 2px solid var(--pxl); opacity: 0; transition: transform .45s cubic-bezier(.34,1.56,.64,1), opacity .35s; }
+    #tykes-popup-form.active { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+    #tykes-popup-form h3 { font-family: 'Fredoka', cursive; font-size: 1.9rem; color: var(--p); margin-bottom: 8px; }
+    #tykes-popup-form > p { font-size: .95rem; color: var(--muted); margin-bottom: 24px; font-family: 'Poppins', sans-serif; }
+    #tykes-popup-close { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--muted); }
+
+    /* ─── SUCCESS STATE ─── */
+    .form-success { display: none; text-align: center; padding: 48px 24px; }
+    .form-success .success-icon { width: 72px; height: 72px; background: linear-gradient(135deg, var(--teal), #04c4ab); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 2rem; }
+    .form-success h3 { font-family: 'Fredoka', cursive; font-size: 2rem; color: var(--txt); margin-bottom: 12px; }
+    .form-success p { font-size: .95rem; color: var(--muted); line-height: 1.7; max-width: 420px; margin: 0 auto; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1100px) {
+      .app-grid { grid-template-columns: 1fr; }
+      .faq-sidebar { position: static; }
+    }
+    @media (max-width: 991px) {
+      .main-nav { display: none; }
+      .ham-btn { display: flex; }
+      .mobile-drawer { display: block; pointer-events: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      #tykes-popup-form, #tykes-form-overlay { display: none !important; }
+      .trust-inner { gap: 28px; }
+    }
+    @media (max-width: 640px) {
+      .app-form-wrap { padding: 36px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .trust-item-text span { display: none; }
+    }
+  </style>
+</head>
+<body class="tykes-home">
+
+  <!-- ─── HEADER ─── -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a href="https://tykes.school/" class="header-logo">
+        <img src="https://tykes.school/wp-content/uploads/2026/03/Tykes-without-Kidzonia-Enterprise-04-scaled-e1774873351568.png" alt="Tykes Early Years">
+      </a>
+      <nav class="main-nav" aria-label="Main Navigation">
+        <div class="nav-item"><a href="https://tykes.school/">Home</a></div>
+        <div class="nav-item">
+          <a href="#">About Us <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="#"><span class="dot" style="background:#7C3AED;"></span> Our Philosophy</a>
+            <a href="#"><span class="dot" style="background:#EC4899;"></span> Our Leadership</a>
+            <a href="#"><span class="dot" style="background:#14B8A6;"></span> Our Learning Spaces</a>
+            <a href="#"><span class="dot" style="background:#F59E0B;"></span> Awards & Recognition</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="#">Curriculum <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="#"><span class="dot" style="background:#7C3AED;"></span> The Tykes Difference</a>
+            <a href="#"><span class="dot" style="background:#F97316;"></span> A Day @ Tykes</a>
+            <a href="#"><span class="dot" style="background:#22C55E;"></span> Our Commitment</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="#">Programs <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="#"><span class="dot" style="background:#EC4899;"></span> Play Group</a>
+            <a href="#"><span class="dot" style="background:#F97316;"></span> Nursery</a>
+            <a href="#"><span class="dot" style="background:#0EA5E9;"></span> Junior Kg</a>
+            <a href="#"><span class="dot" style="background:#22C55E;"></span> Senior Kg</a>
+            <a href="#"><span class="dot" style="background:#F59E0B;"></span> Daycare</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="#">Corporate Daycare</a></div>
+        <div class="nav-item">
+          <a href="#" class="active">Franchise <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="#"><span class="dot" style="background:#7C3AED;"></span> Why Partner With Us</a>
+            <a href="#"><span class="dot" style="background:#14B8A6;"></span> How We Support You</a>
+            <a href="#" style="background:var(--pxl); color:var(--p);"><span class="dot" style="background:#F59E0B;"></span> Franchise Application</a>
+            <a href="#"><span class="dot" style="background:#EC4899;"></span> Franchise FAQs</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="#">Admissions</a></div>
+        <div class="nav-item">
+          <a href="#">Media <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="#"><span class="dot" style="background:#7C3AED;"></span> Gallery</a>
+            <a href="#"><span class="dot" style="background:#F97316;"></span> Newsroom</a>
+            <a href="#"><span class="dot" style="background:#22C55E;"></span> Blogs</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="#">Contact Us <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="#"><span class="dot" style="background:#7C3AED;"></span> Get in Touch</a>
+            <a href="#"><span class="dot" style="background:#14B8A6;"></span> Our Centers</a>
+            <a href="#"><span class="dot" style="background:#F59E0B;"></span> Careers</a>
+          </div>
+        </div>
+      </nav>
+      <div class="header-cta">
+        <button class="btn-enroll" onclick="tykesOpenPopup()">Book a Visit →</button>
+        <button class="ham-btn" id="hamBtn" onclick="toggleDrawer()" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobileDrawer" onclick="handleDrawerClick(event)">
+    <div class="drawer-panel">
+      <div class="drawer-logo"><img src="https://tykes.school/wp-content/uploads/2026/03/Assets-for-website-14-e1774873291651.png" alt="Tykes"></div>
+      <a href="https://tykes.school/" class="mob-link">Home</a>
+      <button class="mob-link" onclick="toggleMobSub('sub-about')">About Us <span>›</span></button>
+      <div class="mob-sub" id="sub-about"><a href="#">Our Philosophy</a><a href="#">Awards</a></div>
+      <button class="mob-link" onclick="toggleMobSub('sub-programs')">Programs <span>›</span></button>
+      <div class="mob-sub" id="sub-programs">
+        <a href="#">Play Group</a><a href="#">Nursery</a><a href="#">Daycare</a>
+      </div>
+      <button class="mob-link open" onclick="toggleMobSub('sub-franchise')">Franchise <span>›</span></button>
+      <div class="mob-sub open" id="sub-franchise">
+        <a href="#">Why Partner With Us</a>
+        <a href="#">How We Support You</a>
+        <a href="#" style="color:var(--p);">Franchise Application</a>
+        <a href="#">Franchise FAQs</a>
+      </div>
+      <a href="#" class="mob-link">Admissions</a>
+      <button class="mob-enroll-btn" onclick="closeDrawer(); tykesOpenPopup();">Book a Visit →</button>
+    </div>
+  </div>
+
+  <!-- ─── BREADCRUMB ─── -->
+  <div class="breadcrumb-bar">
+    <div class="container breadcrumb-inner b-poppins">
+      <a href="https://tykes.school/">Home</a>
+      <span class="sep">›</span>
+      <a href="#">Franchise</a>
+      <span class="sep">›</span>
+      <span class="current">Franchise Application</span>
+    </div>
+  </div>
+
+  <!-- ─── PAGE HERO ─── -->
+  <section class="app-hero">
+    <div class="container app-hero-inner">
+      <div class="app-eyebrow b-poppins"><span class="edot"></span> Franchise Application · Tykes Early Years</div>
+      <h1 class="app-h1">Take the First Step Towards<br>Your <span class="hl">Institution.</span></h1>
+      <p class="app-subhead b-poppins">Complete the form below to begin your Tykes Early Years franchise conversation. Our franchise advisory team will contact you within 48 hours to schedule your strategic consultation.</p>
+    </div>
+  </section>
+
+  <!-- ─── TRUST STRIP ─── -->
+  <div class="trust-strip">
+    <div class="container trust-inner b-poppins">
+      <div class="trust-item">
+        <div class="trust-icon" style="background:#fef9e7;">⏱️</div>
+        <div class="trust-item-text">48-Hour Response<span>Guaranteed callback</span></div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon" style="background:#f5f0ff;">🏛️</div>
+        <div class="trust-item-text">45+ Centres<span>Proven track record</span></div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon" style="background:#edfdf8;">📍</div>
+        <div class="trust-item-text">Territory Exclusivity<span>Yours, protected</span></div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon" style="background:#fff0f0;">🚀</div>
+        <div class="trust-item-text">45-Day Launch<span>From agreement to open</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── MAIN SECTION ─── -->
+  <section class="app-section">
+    <div class="container app-grid">
+
+      <!-- APPLICATION FORM -->
+      <div>
+        <div class="app-form-wrap">
+          <div id="formContent">
+            <h2 class="form-section-title h-fredoka">Franchise Application Form</h2>
+            <p class="form-section-desc b-poppins">All information shared is strictly confidential and used solely to assess franchise fit and schedule your consultation.</p>
+
+            <!-- Personal Details -->
+            <div class="form-section-heading h-fredoka">Personal Details</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label b-poppins">First Name <span class="req">*</span></label>
+                <input type="text" class="form-control b-poppins" placeholder="e.g. Rahul" id="fname">
+              </div>
+              <div class="form-group">
+                <label class="form-label b-poppins">Last Name <span class="req">*</span></label>
+                <input type="text" class="form-control b-poppins" placeholder="e.g. Sharma" id="lname">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label b-poppins">Mobile Number <span class="req">*</span></label>
+                <input type="tel" class="form-control b-poppins" placeholder="+91 98XXX XXXXX" id="phone">
+              </div>
+              <div class="form-group">
+                <label class="form-label b-poppins">Email Address <span class="req">*</span></label>
+                <input type="email" class="form-control b-poppins" placeholder="your@email.com" id="email">
+              </div>
+            </div>
+
+            <hr class="form-divider">
+
+            <!-- Location & Space -->
+            <div class="form-section-heading h-fredoka">Location & Space</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label b-poppins">City / Location <span class="req">*</span></label>
+                <input type="text" class="form-control b-poppins" placeholder="e.g. Pune, Maharashtra" id="city">
+              </div>
+              <div class="form-group">
+                <label class="form-label b-poppins">Preferred Area / Locality</label>
+                <input type="text" class="form-control b-poppins" placeholder="e.g. Baner, Wakad" id="area">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label b-poppins">Space Availability <span class="req">*</span></label>
+              <select class="form-control b-poppins" id="space">
+                <option value="" disabled selected>Select your situation</option>
+                <option>I already have a space (owned / leased)</option>
+                <option>I am actively searching for a space</option>
+                <option>I need guidance on location selection</option>
+              </select>
+            </div>
+
+            <hr class="form-divider">
+
+            <!-- Investment Readiness -->
+            <div class="form-section-heading h-fredoka">Investment Readiness</div>
+            <div class="form-group">
+              <label class="form-label b-poppins">Investment Capacity <span class="req">*</span></label>
+              <select class="form-control b-poppins" id="investment">
+                <option value="" disabled selected>Select your investment range</option>
+                <option>₹30L – ₹50L</option>
+                <option>₹50L – ₹75L</option>
+                <option>₹75L+</option>
+                <option>Need to Discuss</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label b-poppins">Expected Launch Timeline</label>
+              <select class="form-control b-poppins" id="timeline">
+                <option value="" disabled selected>When do you plan to launch?</option>
+                <option>Within 3 months</option>
+                <option>3 – 6 months</option>
+                <option>6 – 12 months</option>
+                <option>Still exploring</option>
+              </select>
+            </div>
+
+            <hr class="form-divider">
+
+            <!-- Background -->
+            <div class="form-section-heading h-fredoka">Your Background</div>
+            <div class="form-group">
+              <label class="form-label b-poppins">Prior Business / Education Experience</label>
+              <select class="form-control b-poppins" id="experience">
+                <option value="" disabled selected>Select the closest match</option>
+                <option>Education sector professional</option>
+                <option>Business owner (other sector)</option>
+                <option>Corporate professional</option>
+                <option>First-time entrepreneur</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label b-poppins">How did you hear about us?</label>
+              <select class="form-control b-poppins" id="source">
+                <option value="" disabled selected>Select a source</option>
+                <option>Online Search / Google</option>
+                <option>Social Media (Instagram / Facebook)</option>
+                <option>Referral from a colleague or friend</option>
+                <option>Existing Tykes / Kidzonia parent</option>
+                <option>Franchise expo or event</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label b-poppins">Any questions or context you'd like to share?</label>
+              <textarea class="form-control b-poppins" placeholder="Optional — share anything that helps us prepare for your consultation." id="message"></textarea>
+            </div>
+
+            <div class="submit-btn-wrap">
+              <button class="submit-btn b-poppins" onclick="handleSubmit()">
+                Submit My Application
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+            </div>
+            <p class="form-note b-poppins">By submitting, you agree to be contacted by the Tykes Early Years franchise advisory team. <strong>No spam, ever.</strong></p>
+          </div>
+
+          <!-- Success State -->
+          <div class="form-success" id="formSuccess">
+            <div class="success-icon">✓</div>
+            <h3 class="h-fredoka">Application Received!</h3>
+            <p class="b-poppins">Thank you for taking the first step. Our franchise advisory team will review your application and reach out within <strong>48 hours</strong> to schedule your strategic consultation.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ SIDEBAR -->
+      <aside class="faq-sidebar">
+        <div class="faq-sidebar-header">
+          <div class="faq-sidebar-eyebrow b-poppins">Common Questions</div>
+          <h2 class="faq-sidebar-title h-fredoka">Franchise<br>FAQs</h2>
+        </div>
+        <div class="faq-list" id="faqList">
+
+          <div class="faq-item open">
+            <button class="faq-q b-poppins" onclick="toggleFaq(this)">
+              What is the total investment?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-a"><p>₹30 Lakhs+. This includes setup guidance, academic framework integration, curriculum materials, teacher training, branding, and brand implementation.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q b-poppins" onclick="toggleFaq(this)">
+              Do I need prior education experience?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-a"><p>No. A passion for education is essential, but prior sector experience is not mandatory. Our systems and training frameworks enable disciplined execution regardless of background.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q b-poppins" onclick="toggleFaq(this)">
+              How large a space do I need?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-a"><p>2,000 to 3,000 sq. ft. Ground floor or first floor in residential or mixed-use areas preferred. We evaluate each location against our infrastructure benchmark checklist.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q b-poppins" onclick="toggleFaq(this)">
+              How long does it take to launch?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-a"><p>45 days from the date of agreement signing. This is a structured, supervised process refined across 45+ Kidzonia centre openings.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q b-poppins" onclick="toggleFaq(this)">
+              What ongoing support do I receive?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-a"><p>Academic guidance, monthly operational reviews, marketing consultation, and continuous franchise advisory — for the full duration of the franchise term.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q b-poppins" onclick="toggleFaq(this)">
+              Is territory exclusivity provided?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-a"><p>Yes. Each franchisee receives an exclusive geographic territory within which Tykes will not authorise another franchise. Territory definitions are agreed at signing.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q b-poppins" onclick="toggleFaq(this)">
+              Can I open more than one centre?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-a"><p>Yes. Our replicable model is designed for multi-centre expansion. Franchisees who meet performance criteria have a supported pathway to open additional centres.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q b-poppins" onclick="toggleFaq(this)">
+              What are the royalty arrangements?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-a"><p>Structured as a reasonable percentage of monthly collected fees. Full details are shared during the franchise consultation and documented in the agreement.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q b-poppins" onclick="toggleFaq(this)">
+              Do you help with hiring staff?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-a"><p>Yes. We provide structured recruitment guidance, job description templates, interview frameworks, and a teacher training programme aligned to the Tykes methodology.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q b-poppins" onclick="toggleFaq(this)">
+              What if enrolments are slow initially?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="faq-a"><p>We provide admissions campaign support, local area activation guidance, digital marketing creatives, and strategic advisory specifically for the launch and first-year enrolment phase.</p></div>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- ─── CTA BAND ─── -->
+  <section class="cta-band">
+    <div class="container cta-inner">
+      <div class="cta-eyebrow b-poppins">Franchise Enquiries Open</div>
+      <h2 class="cta-h2 h-fredoka">Ready to Build Your<br><span class="gd">Own Institution?</span></h2>
+      <p class="cta-desc b-poppins">Limited territories available. Submit your enquiry and our franchise partnerships team will be in touch within 48 hours.</p>
+      <div class="cta-buttons">
+        <button class="cta-main b-poppins" onclick="tykesOpenPopup()">Enquire Now →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand b-poppins">
+            <img src="https://tykes.school/wp-content/uploads/2026/03/Tykes-Kidzonia-Logo.png" alt="Tykes">
+            <p>Built on the academic foundation and operational experience of Kidzonia International Preschools.</p>
+            <div class="social-links">
+              <a href="#" class="social-btn">📸</a>
+              <a href="#" class="social-btn">📘</a>
+              <a href="#" class="social-btn">▶</a>
+            </div>
+          </div>
+          <div class="footer-col b-poppins">
+            <h5>Programs</h5>
+            <ul>
+              <li><a href="#">Play Group</a></li>
+              <li><a href="#">Nursery</a></li>
+              <li><a href="#">Junior KG</a></li>
+              <li><a href="#">Senior KG</a></li>
+              <li><a href="#">Daycare</a></li>
+            </ul>
+          </div>
+          <div class="footer-col b-poppins">
+            <h5>Quick Links</h5>
+            <ul>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Admissions</a></li>
+              <li><a href="#">Franchise</a></li>
+            </ul>
+          </div>
+          <div class="footer-col b-poppins">
+            <h5>Get In Touch</h5>
+            <div class="footer-contact-item"><span class="icon">📞</span><a href="tel:8400966400" style="color:rgba(255,255,255,.65);">8400-966-400</a></div>
+            <div class="footer-contact-item"><span class="icon">✉️</span><a href="mailto:info@tykes.school" style="color:rgba(255,255,255,.65);">info@tykes.school</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom b-poppins">
+      <div class="container"><p>© 2026 <span>Tykes Early Years</span> — A Kidzonia Enterprise.</p></div>
+    </div>
+  </footer>
+
+  <!-- ─── POPUP ─── -->
+  <div id="tykes-form-overlay" onclick="tykesClosePopup()"></div>
+  <div id="tykes-popup-form" role="dialog" aria-modal="true">
+    <button id="tykes-popup-close" onclick="tykesClosePopup()" aria-label="Close">✕</button>
+    <h3>Franchise Enquiry 🏛️</h3>
+    <p>Fill in your details and our partnerships team will get in touch within 48 hours.</p>
+    <form onsubmit="return false;">
+      <div class="form-group"><input type="text" class="form-control b-poppins" placeholder="Your Full Name *" required></div>
+      <div class="form-group"><input type="tel" class="form-control b-poppins" placeholder="Mobile Number *" required></div>
+      <div class="form-group"><input type="email" class="form-control b-poppins" placeholder="Email Address *" required></div>
+      <div class="form-group"><input type="text" class="form-control b-poppins" placeholder="City / Location *" required></div>
+      <div class="form-group">
+        <select class="form-control b-poppins" required>
+          <option value="" disabled selected>Investment Readiness *</option>
+          <option>₹30L – ₹50L</option>
+          <option>₹50L – ₹75L</option>
+          <option>₹75L+</option>
+          <option>Need to Discuss</option>
+        </select>
+      </div>
+      <button type="submit" class="submit-btn b-poppins" style="border-radius:50px;padding:16px;" onclick="tykesClosePopup()">Submit Enquiry →</button>
+    </form>
+  </div>
+
+  <script>
+    /* HEADER SCROLL */
+    var h = document.getElementById('siteHeader');
+    window.addEventListener('scroll', function(){ h.classList.toggle('scrolled', window.scrollY > 40); });
+
+    /* MOBILE DRAWER */
+    function toggleDrawer(){
+      var d=document.getElementById('mobileDrawer'), b=document.getElementById('hamBtn');
+      var open=d.classList.toggle('open'); b.classList.toggle('open',open);
+      document.body.style.overflow=open?'hidden':''; d.style.pointerEvents=open?'all':'none';
+    }
+    function closeDrawer(){
+      document.getElementById('mobileDrawer').classList.remove('open');
+      document.getElementById('hamBtn').classList.remove('open');
+      document.body.style.overflow='';
+    }
+    function handleDrawerClick(e){ if(e.target===document.getElementById('mobileDrawer')) closeDrawer(); }
+    function toggleMobSub(id){ document.getElementById(id).classList.toggle('open'); }
+
+    /* FAQ ACCORDION */
+    function toggleFaq(btn) {
+      var item = btn.closest('.faq-item');
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+      if (!isOpen) item.classList.add('open');
+    }
+
+    /* FORM SUBMIT */
+    function handleSubmit() {
+      var fname = document.getElementById('fname').value;
+      var phone = document.getElementById('phone').value;
+      var email = document.getElementById('email').value;
+      var city  = document.getElementById('city').value;
+      var investment = document.getElementById('investment').value;
+      if (!fname || !phone || !email || !city || !investment) {
+        alert('Please fill in all required fields before submitting.');
+        return;
+      }
+      document.getElementById('formContent').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    }
+
+    /* POPUP */
+    function tykesOpenPopup(){
+      if(window.innerWidth<=991) return;
+      var ov=document.getElementById('tykes-form-overlay'), pop=document.getElementById('tykes-popup-form');
+      ov.style.display='block'; pop.style.display='block'; pop.offsetHeight;
+      requestAnimationFrame(function(){ ov.classList.add('active'); pop.classList.add('active'); });
+      document.body.style.overflow='hidden';
+    }
+    function tykesClosePopup(){
+      var ov=document.getElementById('tykes-form-overlay'), pop=document.getElementById('tykes-popup-form');
+      ov.classList.remove('active'); pop.classList.remove('active');
+      setTimeout(function(){ ov.style.display='none'; pop.style.display='none'; document.body.style.overflow=''; },400);
+    }
+  </script>
+
+</body>
+</html>

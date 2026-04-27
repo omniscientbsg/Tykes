@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Junior KG – Curious Builders | Tykes Early Years</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ─── EXACT BRAND TOKENS ─── */
+    :root {
+      --p: #8257bd;
+      --pd: #6d46a8;
+      --pl: #a884e3;
+      --pxl: #f3edff;
+      --gold: #fdbc02;
+      --goldd: #e0a800;
+      --orange: #fc8738;
+      --pink: #dd5b9d;
+      --coral: #e44a4b;
+      --teal: #05a28d;
+      --sky: #0EA5E9;
+      --green: #22C55E;
+      --white: #FFFFFF;
+      --txt: #1E1B4B;
+      --muted: #6B7280;
+      --bg-cream: #FFFBF0;
+      --bg-mint: #F0FDF8;
+      --bg-blush: #FFF5FB;
+      --bg-lav: #F9F7FF;
+    }
+
+    /* ─── RESET ─── */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body.tykes-home { font-family: 'Poppins', sans-serif; background: var(--bg-lav); color: var(--txt); overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+    /* ─── KEYFRAMES ─── */
+    @keyframes floatFloat { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-12px) rotate(2deg); } }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+
+    /* ─── HEADER (Exact Copy) ─── */
+    .site-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 9000; transition: all .4s ease; }
+    .site-header.scrolled .header-inner { background: rgba(255, 255, 255, .97); backdrop-filter: blur(20px); box-shadow: 0 4px 30px rgba(124, 58, 237, .12); padding: 10px 30px; border-bottom: none; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; position: relative; padding: 18px 30px; background: rgba(255, 255, 255, .85); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(124, 58, 237, .08); transition: all .4s ease; }
+    .header-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .header-logo img { height: 46px; width: auto; display: block; }
+    .main-nav { display: flex; align-items: center; gap: 4px; position: absolute; left: 50%; transform: translateX(-50%); }
+    .nav-item { position: relative; }
+    .nav-item>a { display: flex; align-items: center; gap: 5px; padding: 8px 14px; border-radius: 50px; font-weight: 700; font-size: .92rem; color: var(--txt); transition: .25s; white-space: nowrap; }
+    .nav-item>a:hover, .nav-item>a.active { color: var(--p); background: var(--pxl); }
+    .nav-item>a .chevron { display: inline-block; width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.5; transition: transform .3s; }
+    .nav-item:hover>a .chevron { transform: rotate(180deg); }
+    .nav-dropdown { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(8px); background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(124, 58, 237, .18); border: 1px solid rgba(124, 58, 237, .1); padding: 12px; min-width: 200px; opacity: 0; pointer-events: none; visibility: hidden; transition: opacity .25s, transform .25s; }
+    .nav-item:hover .nav-dropdown { opacity: 1; pointer-events: all; visibility: visible; transform: translateX(-50%) translateY(0); }
+    .nav-dropdown a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; font-size: .9rem; font-weight: 600; color: var(--txt); transition: .2s; white-space: nowrap; }
+    .nav-dropdown a:hover { background: var(--pxl); color: var(--p); }
+    .nav-dropdown a .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .header-cta { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .btn-enroll { background: linear-gradient(135deg, var(--p), var(--pd)); color: white; padding: 10px 22px; border-radius: 50px; font-weight: 800; font-size: .9rem; border: none; cursor: pointer; font-family: inherit; transition: .3s; box-shadow: 0 6px 20px rgba(124, 58, 237, .35); }
+    .btn-enroll:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(124, 58, 237, .45); }
+    .ham-btn { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 6px; z-index: 9100; }
+    .ham-btn span { display: block; width: 24px; height: 2.5px; background: var(--p); border-radius: 4px; transition: .35s; }
+    .ham-btn.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .ham-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .ham-btn.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+    .mobile-drawer { display: none; position: fixed; inset: 0; z-index: 9050; background: rgba(30, 27, 75, .55); backdrop-filter: blur(6px); opacity: 0; transition: opacity .35s; }
+    .mobile-drawer.open { opacity: 1; pointer-events: all; }
+    .drawer-panel { position: absolute; top: 0; right: -340px; width: 320px; height: 100%; background: white; box-shadow: -20px 0 50px rgba(0, 0, 0, .18); padding: 28px 24px; overflow-y: auto; transition: right .4s cubic-bezier(.4, 0, .2, 1); display: flex; flex-direction: column; gap: 4px; }
+    .mobile-drawer.open .drawer-panel { right: 0; }
+    .drawer-logo { margin-bottom: 24px; }
+    .drawer-logo img { height: 38px; }
+    .mob-link { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-radius: 14px; font-weight: 700; font-size: 1rem; color: var(--txt); cursor: pointer; transition: .2s; border: none; background: none; width: 100%; text-align: left; font-family: inherit; }
+    .mob-link:hover, .mob-link.open { background: var(--pxl); color: var(--p); }
+    .mob-sub { padding-left: 16px; display: none; flex-direction: column; gap: 2px; }
+    .mob-sub.open { display: flex; }
+    .mob-sub a { padding: 9px 12px; border-radius: 10px; font-size: .9rem; font-weight: 600; color: var(--muted); display: block; }
+    .mob-sub a:hover { color: var(--p); background: var(--pxl); }
+    .mob-enroll-btn { margin-top: 20px; background: linear-gradient(135deg, var(--p), var(--pd)); color: white; width: 100%; padding: 14px; border-radius: 50px; border: none; font-weight: 800; font-size: 1rem; cursor: pointer; font-family: inherit; }
+
+    /* ─── TYPOGRAPHY GLOBALS ─── */
+    .h-fredoka { font-family: 'Fredoka', cursive; font-weight: 700; line-height: 1.1; }
+    .b-poppins { font-family: 'Poppins', sans-serif; }
+
+    /* ─── PAGE HERO ─── */
+    .page-hero {
+      padding-top: 90px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #EDE9FF 0%, #F5F2FF 40%, #FFF8F0 70%, #E8F8F6 100%);
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 0% 50%, rgba(5,162,141,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 100% 20%, rgba(253,188,2,0.14) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 50% at 60% 90%, rgba(130,87,189,0.10) 0%, transparent 50%);
+      pointer-events: none; z-index: 1;
+    }
+    .page-hero-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding: 70px 0; }
+    
+    /* Breadcrumb */
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: .78rem; font-weight: 600; color: var(--muted); margin-bottom: 20px; flex-wrap: wrap; }
+    .breadcrumb a { color: var(--p); }
+    .breadcrumb span { color: var(--muted); }
+    
+    /* Programme badge */
+    .prog-badge { display: inline-flex; align-items: center; gap: 10px; background: white; border: 2px solid var(--teal); padding: 8px 18px; border-radius: 50px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(5,162,141,.12); }
+    .prog-badge .age-tag { font-size: .7rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--teal); }
+    .prog-badge .sep { width: 1px; height: 14px; background: #e5e7eb; }
+    .prog-badge .identity { font-size: .7rem; font-weight: 700; color: var(--muted); letter-spacing: 0.5px; }
+
+    .page-hero h1 { font-family: 'Fredoka', cursive; font-size: clamp(2.8rem, 5vw, 4.2rem); color: var(--txt); line-height: 1.08; margin-bottom: 20px; letter-spacing: -1.5px; }
+    .page-hero h1 .hl-teal { color: var(--teal); position: relative; display: inline-block; }
+    .page-hero h1 .hl-teal::after { content: ''; position: absolute; bottom: 4px; left: 0; width: 100%; height: 7px; background: rgba(5,162,141,0.18); border-radius: 4px; z-index: -1; }
+    .page-hero-quote { font-family: 'Fredoka', cursive; font-size: 1.25rem; font-weight: 500; color: var(--p); line-height: 1.5; margin-bottom: 24px; padding-left: 20px; border-left: 4px solid var(--teal); font-style: italic; }
+    .page-hero-desc { font-size: 1rem; color: var(--muted); line-height: 1.7; margin-bottom: 32px; }
+    .hero-cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-teal { background: var(--teal); color: white; padding: 13px 28px; border-radius: 50px; font-weight: 800; font-size: .9rem; border: none; cursor: pointer; font-family: 'Poppins', sans-serif; transition: .3s; box-shadow: 0 8px 20px rgba(5,162,141,.3); display: inline-flex; align-items: center; gap: 8px; }
+    .btn-teal:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(5,162,141,.4); }
+    .btn-outline { background: white; color: var(--p); padding: 13px 28px; border-radius: 50px; font-weight: 700; font-size: .9rem; border: 2px solid var(--pxl); cursor: pointer; font-family: 'Poppins', sans-serif; transition: .3s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-outline:hover { border-color: var(--p); color: var(--p); }
+
+    /* Hero image side */
+    .hero-img-side { position: relative; }
+    .hero-img-main { width: 100%; height: 420px; object-fit: cover; border-radius: 24px; box-shadow: 0 25px 60px rgba(5,162,141,.18); border: 6px solid white; }
+    .hero-float-badge {
+      position: absolute; bottom: 24px; left: -20px;
+      background: white; border-radius: 16px; padding: 14px 18px;
+      display: flex; align-items: center; gap: 12px;
+      box-shadow: 0 15px 40px rgba(0,0,0,.12); border: 1px solid var(--pxl);
+      animation: floatFloat 4s ease-in-out infinite;
+    }
+    .hero-float-badge .icon { font-size: 1.8rem; }
+    .hero-float-badge .text strong { display: block; font-family: 'Fredoka', cursive; font-size: 1rem; color: var(--p); }
+    .hero-float-badge .text span { font-size: .7rem; color: var(--muted); font-weight: 600; }
+    .hero-float-badge2 {
+      position: absolute; top: 20px; right: -16px;
+      background: var(--teal); border-radius: 14px; padding: 12px 18px;
+      text-align: center; box-shadow: 0 10px 28px rgba(5,162,141,.35);
+      border: 3px solid white;
+    }
+    .hero-float-badge2 .num { font-family: 'Fredoka', cursive; font-size: 1.6rem; font-weight: 700; color: white; display: block; line-height: 1; }
+    .hero-float-badge2 .lbl { font-size: .6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,.85); }
+
+    /* ─── PROGRAMME NAV TABS ─── */
+    .prog-nav { background: white; border-bottom: 1px solid #f0eaff; position: sticky; top: 72px; z-index: 100; box-shadow: 0 4px 20px rgba(130,87,189,.06); }
+    .prog-nav-inner { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
+    .prog-nav-inner::-webkit-scrollbar { display: none; }
+    .prog-tab { padding: 16px 24px; font-size: .88rem; font-weight: 700; color: var(--muted); white-space: nowrap; border-bottom: 3px solid transparent; cursor: pointer; transition: .25s; background: none; border-top: none; border-left: none; border-right: none; font-family: 'Poppins', sans-serif; }
+    .prog-tab:hover { color: var(--p); border-bottom-color: var(--pxl); }
+    .prog-tab.active { color: var(--teal); border-bottom-color: var(--teal); }
+
+    /* ─── INTRO SECTION ─── */
+    .intro-sec { padding: 100px 0; background: white; }
+    .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .intro-eyebrow { font-size: .75rem; font-weight: 800; letter-spacing: 2px; color: var(--teal); text-transform: uppercase; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+    .intro-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--teal); }
+    .intro-h2 { font-family: 'Fredoka', cursive; font-size: clamp(2.2rem, 3.5vw, 3rem); color: var(--txt); line-height: 1.12; margin-bottom: 24px; letter-spacing: -1px; }
+    .intro-h2 em { color: var(--teal); font-style: normal; }
+    .intro-p { font-size: 1.05rem; color: var(--muted); line-height: 1.75; margin-bottom: 20px; }
+    .intro-img-col { position: relative; }
+    .intro-img { width: 100%; height: 480px; object-fit: cover; border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,.1); }
+    .intro-img-accent { position: absolute; bottom: -20px; right: -20px; width: 50%; height: 200px; border-radius: 20px; background: var(--bg-mint); border: 6px solid white; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,.1); }
+    .intro-img-accent img { width: 100%; height: 100%; object-fit: cover; }
+    .intro-blob { position: absolute; top: -30px; left: -30px; width: 200px; height: 200px; border-radius: 50%; background: rgba(5,162,141,.08); }
+
+    /* ─── FOCUS AREAS ─── */
+    .focus-sec { padding: 110px 0; background: var(--bg-lav); }
+    .focus-header { text-align: center; max-width: 700px; margin: 0 auto 70px; }
+    .section-eyebrow { font-size: .75rem; font-weight: 800; letter-spacing: 2px; color: var(--p); text-transform: uppercase; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px; justify-content: center; }
+    .section-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--p); }
+    .section-h2 { font-family: 'Fredoka', cursive; font-size: clamp(2.2rem, 3.5vw, 3rem); color: var(--txt); line-height: 1.12; margin-bottom: 16px; letter-spacing: -1px; }
+    .section-sub { font-size: 1rem; color: var(--muted); line-height: 1.7; }
+
+    .focus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .focus-card {
+      background: white;
+      border-radius: 24px;
+      padding: 36px 30px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.05);
+      border: 2px solid transparent;
+      transition: all .35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .focus-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      border-radius: 24px 24px 0 0;
+    }
+    .focus-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,0,0,.1); }
+    
+    .fc-1::before { background: var(--teal); }
+    .fc-2::before { background: var(--p); }
+    .fc-3::before { background: var(--orange); }
+    .fc-4::before { background: var(--coral); }
+    .fc-5::before { background: var(--pink); }
+    .fc-6::before { background: var(--gold); }
+    .fc-1:hover { border-color: rgba(5,162,141,.15); }
+    .fc-2:hover { border-color: rgba(130,87,189,.15); }
+    .fc-3:hover { border-color: rgba(252,135,56,.15); }
+    .fc-4:hover { border-color: rgba(228,74,75,.15); }
+    .fc-5:hover { border-color: rgba(221,91,157,.15); }
+    .fc-6:hover { border-color: rgba(253,188,2,.15); }
+
+    .focus-icon { font-size: 2.4rem; margin-bottom: 18px; display: block; }
+    .focus-title { font-family: 'Fredoka', cursive; font-size: 1.4rem; font-weight: 700; color: var(--txt); margin-bottom: 10px; line-height: 1.2; }
+    .focus-tag { display: inline-block; font-size: .68rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; margin-bottom: 14px; }
+    .fc-1 .focus-tag { background: rgba(5,162,141,.1); color: var(--teal); }
+    .fc-2 .focus-tag { background: var(--pxl); color: var(--p); }
+    .fc-3 .focus-tag { background: rgba(252,135,56,.1); color: var(--orange); }
+    .fc-4 .focus-tag { background: rgba(228,74,75,.1); color: var(--coral); }
+    .fc-5 .focus-tag { background: rgba(221,91,157,.1); color: var(--pink); }
+    .fc-6 .focus-tag { background: rgba(253,188,2,.12); color: var(--goldd); }
+    .focus-desc { font-size: .93rem; color: var(--muted); line-height: 1.65; }
+
+    /* ─── MILESTONES SECTION ─── */
+    .milestones-sec { padding: 110px 0; background: white; }
+    .milestones-layout { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 80px; align-items: start; }
+    .milestones-left { position: sticky; top: 140px; }
+    .milestones-img { width: 100%; height: 500px; object-fit: cover; border-radius: 28px; box-shadow: 0 25px 60px rgba(130,87,189,.15); }
+    .milestones-left-tag { position: absolute; bottom: -20px; left: 20px; background: var(--p); color: white; padding: 16px 22px; border-radius: 16px; box-shadow: 0 12px 30px rgba(130,87,189,.35); border: 3px solid white; }
+    .milestones-left-tag .big { font-family: 'Fredoka', cursive; font-size: 2rem; font-weight: 700; display: block; line-height: 1; }
+    .milestones-left-tag .small { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; opacity: .85; }
+
+    .milestones-list { display: flex; flex-direction: column; gap: 20px; }
+    .milestone-item {
+      display: flex; gap: 20px; align-items: flex-start;
+      background: var(--bg-lav); border-radius: 18px; padding: 24px 26px;
+      border: 2px solid transparent; transition: .3s;
+    }
+    .milestone-item:hover { border-color: var(--pxl); background: white; box-shadow: 0 8px 30px rgba(130,87,189,.08); }
+    .milestone-num {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), #04b89f);
+      color: white; font-family: 'Fredoka', cursive;
+      font-size: 1.2rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .milestone-content h4 { font-family: 'Fredoka', cursive; font-size: 1.1rem; font-weight: 700; color: var(--txt); margin-bottom: 6px; line-height: 1.3; }
+    .milestone-content p { font-size: .88rem; color: var(--muted); line-height: 1.55; }
+
+    /* ─── A DAY IN JUNIOR KG ─── */
+    .day-sec { padding: 110px 0; background: var(--p); position: relative; overflow: hidden; }
+    .day-sec::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .day-header { text-align: center; margin-bottom: 60px; position: relative; z-index: 2; }
+    .day-header .section-eyebrow { color: var(--gold); }
+    .day-header .section-eyebrow::before { background: var(--gold); }
+    .day-header .section-h2 { color: white; }
+    .day-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; position: relative; z-index: 2; }
+    .day-card { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15); border-radius: 20px; padding: 28px 22px; backdrop-filter: blur(10px); transition: .3s; }
+    .day-card:hover { background: rgba(255,255,255,.18); transform: translateY(-6px); }
+    .day-time { font-size: .72rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .day-activity { font-family: 'Fredoka', cursive; font-size: 1.25rem; font-weight: 700; color: white; margin-bottom: 10px; line-height: 1.2; }
+    .day-desc { font-size: .85rem; color: rgba(255,255,255,.7); line-height: 1.55; }
+    .day-icon { font-size: 2rem; margin-bottom: 14px; }
+
+    /* ─── WHY JUNIOR KG ─── */
+    .why-jkg-sec { padding: 110px 0; background: var(--bg-lav); }
+    .why-jkg-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; align-items: center; }
+    .why-jkg-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .why-jkg-card {
+      background: white; border-radius: 18px; padding: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.04);
+      transition: .3s;
+    }
+    .why-jkg-card:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(130,87,189,.1); }
+    .why-jkg-card .wjk-icon { font-size: 1.8rem; margin-bottom: 12px; }
+    .why-jkg-card h4 { font-family: 'Fredoka', cursive; font-size: 1.05rem; font-weight: 700; color: var(--txt); margin-bottom: 8px; line-height: 1.3; }
+    .why-jkg-card p { font-size: .83rem; color: var(--muted); line-height: 1.55; }
+    .why-jkg-right { display: flex; flex-direction: column; gap: 24px; }
+    .why-jkg-right .intro-eyebrow { margin-bottom: 8px; }
+    .why-jkg-right .intro-h2 { margin-bottom: 16px; }
+    .why-jkg-right .intro-p { margin-bottom: 0; }
+
+    /* ─── PROGRAMME SIBLINGS NAV ─── */
+    .siblings-sec { padding: 80px 0; background: white; }
+    .siblings-header { text-align: center; margin-bottom: 48px; }
+    .siblings-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+    .sib-card { border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,.05); border: 2px solid #f0eaff; cursor: pointer; transition: .35s; text-decoration: none; display: flex; flex-direction: column; }
+    .sib-card:hover { transform: translateY(-6px); box-shadow: 0 18px 45px rgba(130,87,189,.14); border-color: var(--p); }
+    .sib-card.current { border-color: var(--teal); box-shadow: 0 8px 30px rgba(5,162,141,.2); }
+    .sib-img { width: 100%; height: 130px; object-fit: cover; }
+    .sib-body { padding: 14px 16px 18px; flex-grow: 1; }
+    .sib-age { font-size: .65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; display: block; }
+    .sib-name { font-family: 'Fredoka', cursive; font-size: 1.1rem; font-weight: 700; color: var(--txt); display: block; margin-bottom: 4px; }
+    .sib-tag { font-size: .75rem; color: var(--muted); font-weight: 500; }
+    .sib-card.current .sib-name { color: var(--teal); }
+    .current-badge { display: inline-block; background: var(--teal); color: white; font-size: .6rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; border-radius: 20px; margin-left: 6px; vertical-align: middle; }
+
+    /* ─── AWARDS TICKER ─── */
+    .awards-ticker { background: white; padding: 40px 0; overflow: hidden; }
+    .ticker-track { display: flex; align-items: center; gap: 80px; width: fit-content; animation: marquee 30s linear infinite; }
+    .ticker-item { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.1rem; color: var(--txt); white-space: nowrap; font-family: 'Fredoka', cursive; }
+    .ticker-dot { width: 10px; height: 10px; background: var(--teal); border-radius: 50%; }
+
+    /* ─── CTA BAND (Exact Copy) ─── */
+    .cta-band { position: relative; overflow: hidden; background: linear-gradient(135deg, var(--pd) 0%, var(--p) 50%, #6340a0 100%); padding: 100px 0; text-align: center; }
+    .cta-band::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px); background-size: 50px 50px; }
+    .cta-inner { position: relative; z-index: 2; }
+    .cta-eyebrow { display: inline-block; background: rgba(245,158,11,.15); border: 1px solid rgba(245,158,11,.3); color: #FBBF24; padding: 8px 20px; border-radius: 4px; font-size: .78rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; font-family: 'Poppins',sans-serif; }
+    .cta-h2 { font-family: 'Fredoka', cursive; font-size: clamp(2.2rem, 4vw, 3.4rem); color: white; margin-bottom: 18px; line-height: 1.15; }
+    .cta-h2 .gd { background: linear-gradient(90deg, #FBBF24, #F97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .cta-desc { font-size: 1.05rem; color: rgba(255,255,255,.55); max-width: 580px; margin: 0 auto 44px; line-height: 1.7; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .cta-main { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, var(--gold), var(--orange)); color: #1E1B4B; padding: 15px 32px; border-radius: 6px; font-weight: 800; border: none; cursor: pointer; font-family: 'Poppins', sans-serif; box-shadow: 0 10px 30px rgba(253,188,2,.35); transition: transform .3s; }
+    .cta-main:hover { transform: translateY(-3px); }
+
+    /* ─── FOOTER (Exact Copy) ─── */
+    .site-footer { background: linear-gradient(135deg, var(--p), var(--pd)); color: rgba(255, 255, 255, .65); font-size: .95rem; position: relative; overflow: hidden; }
+    .site-footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--gold), var(--orange), var(--pink), var(--p)); }
+    .footer-top { padding: 80px 0 60px; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 50px; }
+    .footer-brand img { height: 52px; width: auto; margin-bottom: 20px; display: block; }
+    .footer-brand p { line-height: 1.7; font-size: .9rem; margin-bottom: 24px; }
+    .social-links { display: flex; gap: 10px; }
+    .social-btn { width: 40px; height: 40px; border-radius: 12px; background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .1); display: flex; align-items: center; justify-content: center; font-size: 1rem; color: rgba(255, 255, 255, .7); transition: .25s; }
+    .social-btn:hover { background: var(--p); border-color: var(--p); color: white; transform: translateY(-2px); }
+    .footer-col h5 { color: white; font-family: 'Fredoka', cursive; font-size: 1.15rem; font-weight: 700; margin-bottom: 20px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { color: rgba(255, 255, 255, .6); transition: .2s; font-size: .9rem; }
+    .footer-col ul a:hover { color: var(--gold); padding-left: 4px; }
+    .footer-contact-item { display: flex; align-items: flex-start; gap: 10px; color: rgba(255, 255, 255, .65); font-size: .9rem; margin-bottom: 12px; }
+    .footer-contact-item .icon { flex-shrink: 0; margin-top: 1px; }
+    .footer-bottom { border-top: 1px solid rgba(255, 255, 255, .07); padding: 24px 0; text-align: center; font-size: .84rem; color: rgba(255, 255, 255, .35); }
+    .footer-bottom span { color: var(--gold); }
+
+    /* ─── POPUP (Exact Copy) ─── */
+    #tykes-form-overlay { display: none; position: fixed; inset: 0; background: rgba(15,10,42,.65); backdrop-filter: blur(6px); z-index: 99000; opacity: 0; transition: opacity .35s; }
+    #tykes-form-overlay.active { opacity: 1; }
+    #tykes-popup-form { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(.88); z-index: 99100; width: min(500px, 92vw); max-height: 90vh; overflow-y: auto; background: white; border-radius: 20px; padding: 44px 40px; box-shadow: 0 40px 80px rgba(0,0,0,.35); border: 2px solid var(--pxl); opacity: 0; transition: transform .45s cubic-bezier(.34,1.56,.64,1), opacity .35s; }
+    #tykes-popup-form.active { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+    #tykes-popup-form h3 { font-family: 'Fredoka', cursive; font-size: 1.9rem; color: var(--p); margin-bottom: 8px; }
+    #tykes-popup-form > p { font-size: .95rem; color: var(--muted); margin-bottom: 24px; font-family: 'Poppins', sans-serif; }
+    #tykes-popup-close { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--muted); }
+    .tykes-home .form-group { margin-bottom: 14px; }
+    .tykes-home .form-control { width: 100%; padding: 13px 16px; border-radius: 10px; border: 2px solid #eaeaea; outline: none; background: #fafafa; color: var(--txt); font-family: 'Poppins', sans-serif; }
+    .tykes-home select.form-control { appearance: none; }
+    .tykes-home .submit-btn { background: linear-gradient(135deg, var(--p), var(--pd)); color: white; width: 100%; padding: 16px; border-radius: 50px; border: none; font-size: 1rem; font-weight: 800; cursor: pointer; font-family: inherit; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1100px) {
+      .page-hero-inner { grid-template-columns: 1fr; text-align: center; gap: 40px; padding: 60px 0; }
+      .hero-cta-row { justify-content: center; }
+      .prog-badge { margin: 0 auto 20px; }
+      .page-hero-quote { text-align: left; }
+      .hero-float-badge { left: 10px; }
+      .intro-grid, .milestones-layout, .why-jkg-grid { grid-template-columns: 1fr; gap: 50px; }
+      .milestones-left { position: static; }
+      .intro-img-col { order: -1; }
+      .focus-grid { grid-template-columns: repeat(2, 1fr); }
+      .day-grid { grid-template-columns: repeat(2, 1fr); }
+      .siblings-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 991px) {
+      .main-nav { display: none; }
+      .ham-btn { display: flex; }
+      .mobile-drawer { display: block; pointer-events: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      #tykes-popup-form, #tykes-form-overlay { display: none !important; }
+    }
+    @media (max-width: 768px) {
+      .focus-grid { grid-template-columns: 1fr; }
+      .day-grid { grid-template-columns: 1fr 1fr; }
+      .why-jkg-cards { grid-template-columns: 1fr; }
+      .siblings-grid { grid-template-columns: repeat(2, 1fr); }
+      .prog-nav-inner { gap: 0; }
+      .prog-tab { padding: 14px 16px; font-size: .8rem; }
+    }
+    @media (max-width: 600px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .day-grid { grid-template-columns: 1fr; }
+      .siblings-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body class="tykes-home">
+
+  <!-- ─── HEADER (Exact Copy) ─── -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a href="https://tykes.school/" class="header-logo">
+        <img src="https://tykes.school/wp-content/uploads/2026/03/Tykes-without-Kidzonia-Enterprise-04-scaled-e1774873351568.png" alt="Tykes Early Years" id="headerLogoImg">
+      </a>
+      <nav class="main-nav" aria-label="Main Navigation">
+        <div class="nav-item"><a href="https://tykes.school/">Home</a></div>
+        <div class="nav-item">
+          <a href="#">About Us <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="#"><span class="dot" style="background:#7C3AED;"></span> Our Philosophy</a>
+            <a href="#"><span class="dot" style="background:#EC4899;"></span> Our Leadership</a>
+            <a href="#"><span class="dot" style="background:#14B8A6;"></span> Our Learning Spaces</a>
+            <a href="#"><span class="dot" style="background:#F59E0B;"></span> Awards & Recognition</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="#">Curriculum <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="#"><span class="dot" style="background:#7C3AED;"></span> The Tykes Difference</a>
+            <a href="#"><span class="dot" style="background:#F97316;"></span> A Day @ Tykes</a>
+            <a href="#"><span class="dot" style="background:#22C55E;"></span> Our Commitment</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="https://tykes.school/tykes-programmes/" class="active">Programs <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="https://tykes.school/tykes-programmes/#playgroup"><span class="dot" style="background:#A78BFA;"></span> Play Group</a>
+            <a href="https://tykes.school/tykes-programmes/#nursery"><span class="dot" style="background:#F97316;"></span> Nursery</a>
+            <a href="#"><span class="dot" style="background:#05a28d;"></span> Junior KG</a>
+            <a href="https://tykes.school/tykes-programmes/#senior"><span class="dot" style="background:#22C55E;"></span> Senior KG</a>
+            <a href="https://tykes.school/tykes-programmes/#daycare"><span class="dot" style="background:#F59E0B;"></span> Daycare</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="https://tykes.school/corporate-daycare/">Corporate Daycare</a></div>
+        <div class="nav-item">
+          <a href="#">Franchise <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="#"><span class="dot" style="background:#7C3AED;"></span> Why Partner With Us</a>
+            <a href="#"><span class="dot" style="background:#14B8A6;"></span> How We Support You</a>
+            <a href="#"><span class="dot" style="background:#F59E0B;"></span> Franchise Application</a>
+            <a href="#"><span class="dot" style="background:#EC4899;"></span> Franchise FAQs</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="#">Admissions</a></div>
+        <div class="nav-item">
+          <a href="#">Media <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="#"><span class="dot" style="background:#7C3AED;"></span> Gallery</a>
+            <a href="#"><span class="dot" style="background:#F97316;"></span> Newsroom</a>
+            <a href="#"><span class="dot" style="background:#22C55E;"></span> Blogs</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="#">Contact Us <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="#"><span class="dot" style="background:#7C3AED;"></span> Get in Touch</a>
+            <a href="#"><span class="dot" style="background:#14B8A6;"></span> Our Centers</a>
+            <a href="#"><span class="dot" style="background:#F59E0B;"></span> Careers</a>
+          </div>
+        </div>
+      </nav>
+      <div class="header-cta">
+        <button class="btn-enroll" onclick="tykesOpenPopup()">Book a Visit →</button>
+        <button class="ham-btn" id="hamBtn" onclick="toggleDrawer()" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobileDrawer" onclick="handleDrawerClick(event)">
+    <div class="drawer-panel">
+      <div class="drawer-logo"><img src="https://tykes.school/wp-content/uploads/2026/03/Assets-for-website-14-e1774873291651.png" alt="Tykes"></div>
+      <a href="https://tykes.school/" class="mob-link">Home</a>
+      <button class="mob-link" onclick="toggleMobSub('sub-about')">About Us <span>›</span></button>
+      <div class="mob-sub" id="sub-about"><a href="#">Our Philosophy</a><a href="#">Awards</a></div>
+      <button class="mob-link open" onclick="toggleMobSub('sub-programs')">Programs <span>›</span></button>
+      <div class="mob-sub open" id="sub-programs">
+        <a href="#">Play Group</a>
+        <a href="#">Nursery</a>
+        <a href="#" style="color:var(--teal); font-weight:800;">Junior KG ✓</a>
+        <a href="#">Senior KG</a>
+        <a href="#">Daycare</a>
+      </div>
+      <a href="#" class="mob-link">Admissions</a>
+      <button class="mob-enroll-btn" onclick="closeDrawer(); scrollToForm();">Book a Visit →</button>
+    </div>
+  </div>
+
+  <!-- ─── PAGE HERO ─── -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero-inner">
+        <!-- Left: Content -->
+        <div class="page-hero-content">
+          <nav class="breadcrumb b-poppins">
+            <a href="https://tykes.school/">Home</a>
+            <span>›</span>
+            <a href="https://tykes.school/tykes-programmes/">Programmes</a>
+            <span>›</span>
+            <span style="color:var(--teal); font-weight:700;">Junior KG</span>
+          </nav>
+          <div class="prog-badge b-poppins">
+            <span class="age-tag">Age 3.5 – 4.5 Years</span>
+            <div class="sep"></div>
+            <span class="identity">🔬 Curious Builders</span>
+          </div>
+          <h1 class="h-fredoka">Questions Lead to<br><span class="hl-teal">Discovery.</span></h1>
+          <p class="page-hero-quote b-poppins">"Questions Lead to Discovery. Discovery Leads to Confidence."</p>
+          <p class="page-hero-desc b-poppins">Junior KG children at Tykes Early Years are alive with questions. Our programme channels this insatiable curiosity into structured discovery — through thematic projects, hands-on experiments, and collaborative classroom challenges that deepen understanding and build academic readiness.</p>
+          <div class="hero-cta-row">
+            <button class="btn-teal" onclick="tykesOpenPopup()">Book a Free Visit →</button>
+            <button class="btn-outline" onclick="document.getElementById('focus-areas').scrollIntoView({behavior:'smooth'})">Explore Programme ↓</button>
+          </div>
+        </div>
+        <!-- Right: Image -->
+        <div class="hero-img-side">
+          <img src="https://tykes.school/wp-content/uploads/2026/04/2.png" alt="Junior KG children at Tykes" class="hero-img-main">
+          <div class="hero-float-badge">
+            <div class="icon">🔬</div>
+            <div class="text">
+              <strong>Curious Builders</strong>
+              <span>Programme Identity</span>
+            </div>
+          </div>
+          <div class="hero-float-badge2">
+            <span class="num">4–5</span>
+            <span class="lbl">Yrs Old</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROGRAMME NAV TABS ─── -->
+  <nav class="prog-nav b-poppins">
+    <div class="container">
+      <div class="prog-nav-inner">
+        <button class="prog-tab active" onclick="scrollTo('intro')">Introduction</button>
+        <button class="prog-tab" onclick="scrollTo('focus-areas')">Programme Focus</button>
+        <button class="prog-tab" onclick="scrollTo('milestones')">Milestones</button>
+        <button class="prog-tab" onclick="scrollTo('day-in-life')">A Day in Junior KG</button>
+        <button class="prog-tab" onclick="scrollTo('why')">Why Tykes</button>
+        <button class="prog-tab" onclick="tykesOpenPopup()">Enquire Now →</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── INTRODUCTION SECTION ─── -->
+  <section class="intro-sec" id="intro">
+    <div class="container">
+      <div class="intro-grid">
+        <!-- Image Column -->
+        <div class="intro-img-col">
+          <div class="intro-blob"></div>
+          <img src="https://tykes.school/wp-content/uploads/2026/04/6.png" alt="Junior KG learning" class="intro-img">
+          <div class="intro-img-accent">
+            <img src="https://tykes.school/wp-content/uploads/2026/04/4.png" alt="Activity">
+          </div>
+        </div>
+        <!-- Text Column -->
+        <div class="intro-text">
+          <div class="intro-eyebrow b-poppins">About the Programme</div>
+          <h2 class="intro-h2 h-fredoka">Where Every Question<br>Becomes a <em>Discovery</em></h2>
+          <p class="intro-p b-poppins">Junior KG at Tykes is designed for children who are naturally brimming with "why?" — and our educators are trained to honour every single one. This is the age of structured curiosity, where questions are not just welcome, they are the engine of our entire programme.</p>
+          <p class="intro-p b-poppins">Through thematic project work, guided experimentation, collaborative problem-solving, and literacy and numeracy foundations rooted in play, children build the academic readiness and emotional confidence they need for a lifetime of learning.</p>
+          <p class="intro-p b-poppins">Every day in Junior KG is purposefully designed — with a balance of structured learning, creative exploration, physical activity, and social development — so that children leave not just school-ready, but life-ready.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROGRAMME FOCUS AREAS ─── -->
+  <section class="focus-sec" id="focus-areas">
+    <div class="container">
+      <div class="focus-header">
+        <div class="section-eyebrow b-poppins">Programme Focus Areas</div>
+        <h2 class="section-h2 h-fredoka">Six Pillars of the<br>Junior KG Experience</h2>
+        <p class="section-sub b-poppins">Every area of our curriculum is intentionally woven together — academic foundations meet creative expression, and individual discovery meets collaborative growth.</p>
+      </div>
+      <div class="focus-grid">
+
+        <!-- 1. Literacy -->
+        <div class="focus-card fc-1">
+          <span class="focus-icon">📖</span>
+          <div class="focus-tag">Literacy Development</div>
+          <h3 class="focus-title h-fredoka">Reading Readiness &amp; Early Writing</h3>
+          <p class="focus-desc b-poppins">Phonics-based reading readiness, sight word introduction, early writing practice including letter formation, and comprehension through storytelling and drama — building confident, expressive communicators.</p>
+        </div>
+
+        <!-- 2. Numeracy -->
+        <div class="focus-card fc-2">
+          <span class="focus-icon">🔢</span>
+          <div class="focus-tag">Numeracy &amp; Early Maths</div>
+          <h3 class="focus-title h-fredoka">Maths Through Play &amp; Real Life</h3>
+          <p class="focus-desc b-poppins">Counting to 20+, number recognition, basic addition through manipulatives, patterns, measurement, and sorting by attributes — mathematics embedded in real-world contexts that make sense to children.</p>
+        </div>
+
+        <!-- 3. Thematic Projects -->
+        <div class="focus-card fc-3">
+          <span class="focus-icon">🏗️</span>
+          <div class="focus-tag">Thematic Project Work</div>
+          <h3 class="focus-title h-fredoka">Monthly Themes, Deep Learning</h3>
+          <p class="focus-desc b-poppins">Monthly themes explored through classroom projects — research at a child's level, building, creating, presenting. Develops sustained attention, inquiry skills, and genuine pride in achievement.</p>
+        </div>
+
+        <!-- 4. Science -->
+        <div class="focus-card fc-4">
+          <span class="focus-icon">🧪</span>
+          <div class="focus-tag">Science &amp; Discovery</div>
+          <h3 class="focus-title h-fredoka">Little Scientists, Big Questions</h3>
+          <p class="focus-desc b-poppins">Simple experiments, nature study, cause-and-effect exploration. Children are scientists — we give them the tools and language to observe, question, predict, and conclude with confidence.</p>
+        </div>
+
+        <!-- 5. Social & EQ -->
+        <div class="focus-card fc-5">
+          <span class="focus-icon">🤝</span>
+          <div class="focus-tag">Social Skills &amp; Emotional Intelligence</div>
+          <h3 class="focus-title h-fredoka">Empathy, Leadership &amp; Resilience</h3>
+          <p class="focus-desc b-poppins">Conflict resolution, empathy development, leadership opportunities, and structured cooperative play — building emotional intelligence foundational to all future relationships and community participation.</p>
+        </div>
+
+        <!-- 6. Arts -->
+        <div class="focus-card fc-6">
+          <span class="focus-icon">🎨</span>
+          <div class="focus-tag">Arts, Music &amp; Movement</div>
+          <h3 class="focus-title h-fredoka">Expression Through Every Medium</h3>
+          <p class="focus-desc b-poppins">Weekly music sessions, movement and dance, drama, and visual arts — developing aesthetic sensibility, self-expression, and bodily intelligence alongside core academic skills.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── DEVELOPMENTAL MILESTONES ─── -->
+  <section class="milestones-sec" id="milestones">
+    <div class="container">
+      <div class="milestones-layout">
+        <!-- Left: Image -->
+        <div class="milestones-left">
+          <div style="position:relative; display:inline-block; width:100%;">
+            <img src="https://tykes.school/wp-content/uploads/2026/04/5.png" alt="Child milestone" class="milestones-img">
+            <div class="milestones-left-tag b-poppins">
+              <span class="big">6</span>
+              <span class="small">Key Milestones<br>by Year End</span>
+            </div>
+          </div>
+        </div>
+        <!-- Right: Milestones List -->
+        <div>
+          <div class="intro-eyebrow b-poppins" style="margin-bottom:12px;">Developmental Milestones</div>
+          <h2 class="intro-h2 h-fredoka" style="margin-bottom:10px;">What Your Child<br>Will Achieve</h2>
+          <p class="intro-p b-poppins" style="margin-bottom:36px;">By the end of Junior KG at Tykes, children reach these evidence-based milestones — each one a foundation for confident, joyful learning in Senior KG and beyond.</p>
+
+          <div class="milestones-list">
+            <div class="milestone-item">
+              <div class="milestone-num">1</div>
+              <div class="milestone-content">
+                <h4 class="h-fredoka">Phonics-Ready Reader</h4>
+                <p class="b-poppins">Reads simple 3-letter CVC words and recognises all letter sounds — fully prepared for structured phonics progression.</p>
+              </div>
+            </div>
+            <div class="milestone-item">
+              <div class="milestone-num">2</div>
+              <div class="milestone-content">
+                <h4 class="h-fredoka">Confident Writer</h4>
+                <p class="b-poppins">Writes letters of the alphabet and simple words with increasing control and growing pride in their own written expression.</p>
+              </div>
+            </div>
+            <div class="milestone-item">
+              <div class="milestone-num">3</div>
+              <div class="milestone-content">
+                <h4 class="h-fredoka">Early Mathematician</h4>
+                <p class="b-poppins">Counts to 30+, understands number before and after, and can do simple sums with manipulatives — making maths tangible and meaningful.</p>
+              </div>
+            </div>
+            <div class="milestone-item">
+              <div class="milestone-num">4</div>
+              <div class="milestone-content">
+                <h4 class="h-fredoka">Articulate Communicator</h4>
+                <p class="b-poppins">Participates confidently in group discussions and sustains story-related conversations, listening and responding with growing sophistication.</p>
+              </div>
+            </div>
+            <div class="milestone-item">
+              <div class="milestone-num">5</div>
+              <div class="milestone-content">
+                <h4 class="h-fredoka">Independent Project Thinker</h4>
+                <p class="b-poppins">Completes a project task independently over multiple sessions — demonstrating sustained attention, planning, and a genuine sense of accomplishment.</p>
+              </div>
+            </div>
+            <div class="milestone-item">
+              <div class="milestone-num">6</div>
+              <div class="milestone-content">
+                <h4 class="h-fredoka">Emotionally Intelligent Peer</h4>
+                <p class="b-poppins">Demonstrates empathy and uses words to resolve peer conflicts — a social-emotional milestone that underpins every relationship in school and life.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── A DAY IN JUNIOR KG ─── -->
+  <section class="day-sec" id="day-in-life">
+    <div class="container">
+      <div class="day-header">
+        <div class="section-eyebrow b-poppins">A Typical Day</div>
+        <h2 class="section-h2 h-fredoka">A Day in Junior KG</h2>
+        <p class="section-sub b-poppins" style="color:rgba(255,255,255,.65);">Every hour is purposeful. Every moment is joyful. Here's how a day unfolds for our Curious Builders.</p>
+      </div>
+      <div class="day-grid">
+        <div class="day-card">
+          <div class="day-icon">🌅</div>
+          <div class="day-time">8:00 – 8:30 AM</div>
+          <div class="day-activity h-fredoka">Morning Circle &amp; Mindfulness</div>
+          <p class="day-desc b-poppins">Children gather for morning greetings, calendar time, and a short mindfulness moment — setting intentions and building community.</p>
+        </div>
+        <div class="day-card">
+          <div class="day-icon">🔤</div>
+          <div class="day-time">8:30 – 9:15 AM</div>
+          <div class="day-activity h-fredoka">Phonics &amp; Literacy Block</div>
+          <p class="day-desc b-poppins">Structured phonics sessions, sight word practice, and guided reading — building the language foundation children need for independent reading.</p>
+        </div>
+        <div class="day-card">
+          <div class="day-icon">🔢</div>
+          <div class="day-time">9:15 – 10:00 AM</div>
+          <div class="day-activity h-fredoka">Numeracy &amp; Maths Play</div>
+          <p class="day-desc b-poppins">Hands-on maths with manipulatives, counting games, and real-world problem solving — making numbers come alive through play and discovery.</p>
+        </div>
+        <div class="day-card">
+          <div class="day-icon">🏗️</div>
+          <div class="day-time">10:00 – 10:45 AM</div>
+          <div class="day-activity h-fredoka">Thematic Project Time</div>
+          <p class="day-desc b-poppins">Children dive into the month's theme — building, creating, researching, and presenting. The heart of the Junior KG Curious Builders experience.</p>
+        </div>
+        <div class="day-card">
+          <div class="day-icon">🍎</div>
+          <div class="day-time">10:45 – 11:15 AM</div>
+          <div class="day-activity h-fredoka">Snack &amp; Outdoor Play</div>
+          <p class="day-desc b-poppins">Nutritious snack time followed by supervised outdoor play — developing gross motor skills, social bonds, and a love of physical activity.</p>
+        </div>
+        <div class="day-card">
+          <div class="day-icon">🧪</div>
+          <div class="day-time">11:15 AM – 12:00 PM</div>
+          <div class="day-activity h-fredoka">Science Discovery or Arts</div>
+          <p class="day-desc b-poppins">Alternating between science experiments and arts, music, and movement — nurturing both the analytical and creative minds within every child.</p>
+        </div>
+        <div class="day-card">
+          <div class="day-icon">📚</div>
+          <div class="day-time">12:00 – 12:30 PM</div>
+          <div class="day-activity h-fredoka">Story Time &amp; Reflection</div>
+          <p class="day-desc b-poppins">A shared story, group discussion, and reflection on the day — building comprehension, vocabulary, and the habit of thoughtful conversation.</p>
+        </div>
+        <div class="day-card">
+          <div class="day-icon">👋</div>
+          <div class="day-time">12:30 PM</div>
+          <div class="day-activity h-fredoka">Farewell Circle</div>
+          <p class="day-desc b-poppins">Children share one thing they discovered or felt proud of — closing the day with recognition, gratitude, and excitement for tomorrow.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── WHY TYKES FOR JUNIOR KG ─── -->
+  <section class="why-jkg-sec" id="why">
+    <div class="container">
+      <div class="why-jkg-grid">
+        <!-- Left: Cards -->
+        <div class="why-jkg-cards">
+          <div class="why-jkg-card">
+            <div class="wjk-icon">🎓</div>
+            <h4 class="h-fredoka">Research-Backed Curriculum</h4>
+            <p class="b-poppins">Integrating Montessori, Reggio Emilia, and Bloom's Taxonomy — a proven framework for curious, capable learners.</p>
+          </div>
+          <div class="why-jkg-card">
+            <div class="wjk-icon">👩‍🏫</div>
+            <h4 class="h-fredoka">Trained Educators</h4>
+            <p class="b-poppins">Every teacher is specially trained in early childhood education with ongoing academic oversight and mentoring.</p>
+          </div>
+          <div class="why-jkg-card">
+            <div class="wjk-icon">🔭</div>
+            <h4 class="h-fredoka">Inquiry-Led Learning</h4>
+            <p class="b-poppins">Children lead their own discovery through questions — educators facilitate, not dictate, the learning journey.</p>
+          </div>
+          <div class="why-jkg-card">
+            <div class="wjk-icon">📊</div>
+            <h4 class="h-fredoka">Progress Transparency</h4>
+            <p class="b-poppins">Regular parent updates, milestone tracking, and open communication ensure you're always part of your child's growth.</p>
+          </div>
+          <div class="why-jkg-card">
+            <div class="wjk-icon">🏛️</div>
+            <h4 class="h-fredoka">Structured Learning Spaces</h4>
+            <p class="b-poppins">Purpose-designed activity corners, science nooks, and library spaces structured for independent and collaborative discovery.</p>
+          </div>
+          <div class="why-jkg-card">
+            <div class="wjk-icon">🌈</div>
+            <h4 class="h-fredoka">Holistic Development</h4>
+            <p class="b-poppins">Academics, arts, movement, and emotional intelligence — every dimension of growth is nurtured with equal intention.</p>
+          </div>
+        </div>
+        <!-- Right: Text -->
+        <div class="why-jkg-right">
+          <div class="intro-eyebrow b-poppins">Why Choose Tykes</div>
+          <h2 class="intro-h2 h-fredoka" style="color:var(--txt);">Built for Children Who Ask <em style="color:var(--teal); font-style:normal;">"Why?"</em></h2>
+          <p class="intro-p b-poppins">At Tykes, we believe the most important thing a 4-year-old can do is ask good questions. Our Junior KG programme is architected to honour that instinct — giving it structure, depth, and direction without ever extinguishing the spark.</p>
+          <p class="intro-p b-poppins">Built on the 15-year academic legacy of Kidzonia International Preschools and refined across 45+ preschool centres in India, the Tykes Junior KG curriculum is one of the most thoughtfully developed early childhood programmes available today.</p>
+          <p class="intro-p b-poppins">We don't just prepare children for Senior KG. We prepare them for a lifetime of loving learning.</p>
+          <div style="margin-top: 28px;">
+            <button class="btn-teal" onclick="tykesOpenPopup()">Book a Free Visit →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── OTHER PROGRAMMES ─── -->
+  <section class="siblings-sec">
+    <div class="container">
+      <div class="siblings-header">
+        <div class="section-eyebrow b-poppins">Our Full Programme Journey</div>
+        <h2 class="section-h2 h-fredoka">Every Age. Every Stage.<br>One Beautiful Journey.</h2>
+      </div>
+      <div class="siblings-grid">
+        <a href="#" class="sib-card">
+          <img src="https://tykes.school/wp-content/uploads/2026/04/6.png" alt="Play Group" class="sib-img">
+          <div class="sib-body">
+            <span class="sib-age b-poppins" style="color:var(--pink);">🍼 Age 2–3 Years</span>
+            <span class="sib-name h-fredoka">Play Group</span>
+            <span class="sib-tag b-poppins">Where It All Begins</span>
+          </div>
+        </a>
+        <a href="#" class="sib-card">
+          <img src="https://tykes.school/wp-content/uploads/2026/04/4.png" alt="Nursery" class="sib-img">
+          <div class="sib-body">
+            <span class="sib-age b-poppins" style="color:var(--orange);">🚀 Age 3–4 Years</span>
+            <span class="sib-name h-fredoka">Nursery</span>
+            <span class="sib-tag b-poppins">Fuel for Independence</span>
+          </div>
+        </a>
+        <a href="#" class="sib-card current">
+          <img src="https://tykes.school/wp-content/uploads/2026/04/2.png" alt="Junior KG" class="sib-img">
+          <div class="sib-body">
+            <span class="sib-age b-poppins" style="color:var(--teal);">🔬 Age 3.5–4.5 Years</span>
+            <span class="sib-name h-fredoka">Junior KG <span class="current-badge">You're Here</span></span>
+            <span class="sib-tag b-poppins">Think, Question, Create</span>
+          </div>
+        </a>
+        <a href="#" class="sib-card">
+          <img src="https://tykes.school/wp-content/uploads/2026/04/5.png" alt="Senior KG" class="sib-img">
+          <div class="sib-body">
+            <span class="sib-age b-poppins" style="color:var(--green);">🎓 Age 5–6 Years</span>
+            <span class="sib-name h-fredoka">Senior KG</span>
+            <span class="sib-tag b-poppins">Ready for Big School</span>
+          </div>
+        </a>
+        <a href="#" class="sib-card">
+          <img src="https://tykes.school/wp-content/uploads/2026/04/3.png" alt="Premium Daycare" class="sib-img">
+          <div class="sib-body">
+            <span class="sib-age b-poppins" style="color:var(--goldd);">🏡 6M – 12 Years</span>
+            <span class="sib-name h-fredoka">Premium Daycare</span>
+            <span class="sib-tag b-poppins">A Home Away From Home</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── AWARDS TICKER ─── -->
+  <div class="awards-ticker">
+    <div class="ticker-track">
+      <div class="ticker-item"><span class="ticker-dot"></span> AIP Rank #1 (2025)</div>
+      <div class="ticker-item"><span class="ticker-dot"></span> Times Leading Icons</div>
+      <div class="ticker-item"><span class="ticker-dot"></span> Rabindranath Tagore Award</div>
+      <div class="ticker-item"><span class="ticker-dot"></span> EducationWorld Top 10</div>
+      <div class="ticker-item"><span class="ticker-dot"></span> Indian Education Awards 2024</div>
+      <div class="ticker-item"><span class="ticker-dot"></span> World Education Summit Award</div>
+      <div class="ticker-item"><span class="ticker-dot"></span> AIP Rank #1 (2025)</div>
+      <div class="ticker-item"><span class="ticker-dot"></span> Times Leading Icons</div>
+      <div class="ticker-item"><span class="ticker-dot"></span> Rabindranath Tagore Award</div>
+      <div class="ticker-item"><span class="ticker-dot"></span> EducationWorld Top 10</div>
+      <div class="ticker-item"><span class="ticker-dot"></span> Indian Education Awards 2024</div>
+      <div class="ticker-item"><span class="ticker-dot"></span> World Education Summit Award</div>
+    </div>
+  </div>
+
+  <!-- ─── BOTTOM CTA BAND (Exact Copy) ─── -->
+  <section class="cta-band" id="form-top">
+    <div class="container cta-inner">
+      <div class="cta-eyebrow b-poppins">2025–26 Admissions Open</div>
+      <h2 class="cta-h2 h-fredoka">Give Your Child the <span class="gd">Best Start.</span></h2>
+      <p class="cta-desc b-poppins">Limited seats available. Book a free visit and experience the Tykes difference first-hand.</p>
+      <div class="cta-buttons">
+        <button class="cta-main" onclick="tykesOpenPopup()">Enquire Now →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER (Exact Copy) ─── -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand b-poppins">
+            <img src="https://tykes.school/wp-content/uploads/2026/03/Tykes-Kidzonia-Logo.png" alt="Tykes">
+            <p>Built on the academic foundation and operational experience of Kidzonia International Preschools.</p>
+            <div class="social-links">
+              <a href="#" class="social-btn">📸</a>
+              <a href="#" class="social-btn">📘</a>
+              <a href="#" class="social-btn">▶</a>
+            </div>
+          </div>
+          <div class="footer-col b-poppins">
+            <h5>Programs</h5>
+            <ul>
+              <li><a href="#">Play Group</a></li>
+              <li><a href="#">Nursery</a></li>
+              <li><a href="#" style="color:var(--gold);">Junior KG</a></li>
+              <li><a href="#">Senior KG</a></li>
+              <li><a href="#">Daycare</a></li>
+            </ul>
+          </div>
+          <div class="footer-col b-poppins">
+            <h5>Quick Links</h5>
+            <ul>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Admissions</a></li>
+              <li><a href="#">Franchise</a></li>
+            </ul>
+          </div>
+          <div class="footer-col b-poppins">
+            <h5>Get In Touch</h5>
+            <div class="footer-contact-item"><span class="icon">📞</span><a href="tel:8400966400" style="color:rgba(255,255,255,.65);">8400-966-400</a></div>
+            <div class="footer-contact-item"><span class="icon">✉️</span><a href="mailto:info@tykes.school" style="color:rgba(255,255,255,.65);">info@tykes.school</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom b-poppins">
+      <div class="container"><p>© 2026 <span>Tykes Early Years</span> — A Kidzonia Enterprise.</p></div>
+    </div>
+  </footer>
+
+  <!-- POPUP MODAL (Exact Copy) -->
+  <div id="tykes-form-overlay" onclick="tykesClosePopup()"></div>
+  <div id="tykes-popup-form" role="dialog" aria-modal="true">
+    <button id="tykes-popup-close" onclick="tykesClosePopup()" aria-label="Close">✕</button>
+    <h3>Book a Free Visit 🌟</h3>
+    <p>Fill in your details and our admissions team will get in touch.</p>
+    <form onsubmit="return false;">
+      <div class="form-group"><input type="text" class="form-control b-poppins" placeholder="Child's Name *" required></div>
+      <div class="form-group"><input type="text" class="form-control b-poppins" placeholder="Parent Name *" required></div>
+      <div class="form-group"><input type="tel" class="form-control b-poppins" placeholder="Mobile *" required></div>
+      <div class="form-group"><input type="email" class="form-control b-poppins" placeholder="Email *" required></div>
+      <div class="form-group">
+        <select class="form-control b-poppins" required>
+          <option value="" disabled selected>Child's Age Group *</option>
+          <option>2–3 Yrs (Play Group)</option>
+          <option>3–4 Yrs (Nursery)</option>
+          <option value="4-5" selected>3.5–4.5 Yrs (Junior KG)</option>
+          <option>5–6 Yrs (Senior KG)</option>
+          <option>Daycare</option>
+        </select>
+      </div>
+      <button type="submit" class="submit-btn b-poppins">Submit Enquiry →</button>
+    </form>
+  </div>
+
+<script>
+  /* HEADER SCROLL */
+  var h = document.getElementById('siteHeader');
+  window.addEventListener('scroll', function(){ h.classList.toggle('scrolled', window.scrollY > 40); });
+
+  /* MOBILE DRAWER */
+  function toggleDrawer(){
+    var d=document.getElementById('mobileDrawer'), b=document.getElementById('hamBtn');
+    var open=d.classList.toggle('open'); b.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : ''; d.style.pointerEvents = open ? 'all' : 'none';
+  }
+  function closeDrawer(){
+    document.getElementById('mobileDrawer').classList.remove('open');
+    document.getElementById('hamBtn').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function handleDrawerClick(e){ if(e.target===document.getElementById('mobileDrawer')) closeDrawer(); }
+  function toggleMobSub(id){ document.getElementById(id).classList.toggle('open'); }
+
+  /* SCROLL TO SECTION */
+  function scrollTo(id){
+    var el = document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  function scrollToForm(){ var f=document.getElementById('form-top'); if(f) f.scrollIntoView({behavior:'smooth'}); }
+
+  /* POPUP */
+  function tykesOpenPopup(){
+    if(window.innerWidth<=991){ scrollToForm(); return; }
+    var ov=document.getElementById('tykes-form-overlay'), pop=document.getElementById('tykes-popup-form');
+    ov.style.display='block'; pop.style.display='block'; pop.offsetHeight;
+    requestAnimationFrame(function(){ ov.classList.add('active'); pop.classList.add('active'); });
+    document.body.style.overflow='hidden';
+  }
+  function tykesClosePopup(){
+    var ov=document.getElementById('tykes-form-overlay'), pop=document.getElementById('tykes-popup-form');
+    ov.classList.remove('active'); pop.classList.remove('active');
+    setTimeout(function(){ ov.style.display='none'; pop.style.display='none'; document.body.style.overflow=''; }, 400);
+  }
+
+  /* PROG NAV ACTIVE STATE ON SCROLL */
+  (function(){
+    var sections = ['intro','focus-areas','milestones','day-in-life','why'];
+    var tabs = document.querySelectorAll('.prog-tab');
+    window.addEventListener('scroll', function(){
+      var scrollY = window.scrollY + 160;
+      var current = 0;
+      sections.forEach(function(id, i){
+        var el = document.getElementById(id);
+        if(el && el.offsetTop <= scrollY) current = i;
+      });
+      tabs.forEach(function(t,i){ t.classList.toggle('active', i === current); });
+    });
+  })();
+
+  /* ANIMATE MILESTONE ITEMS ON SCROLL */
+  (function(){
+    var items = document.querySelectorAll('.milestone-item, .focus-card, .why-jkg-card, .day-card');
+    if (!('IntersectionObserver' in window)) return;
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+    items.forEach(function(el, i){
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.5s ease ' + (i * 0.07) + 's, transform 0.5s ease ' + (i * 0.07) + 's';
+      obs.observe(el);
+    });
+  })();
+</script>
+
+</body>
+</html>
