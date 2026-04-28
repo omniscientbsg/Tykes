@@ -455,7 +455,23 @@
       .stats-strip-grid { grid-template-columns: 1fr; gap: 40px; }
       .prog-cards-row { grid-template-columns: 1fr; }
     }
-  </style>
+  
+    /* ─── NEW AWARDS GALLERY ─── */
+    .awards-sec { padding:100px 0; background:var(--bg-lav); }
+    .awards-sec-inner { text-align: center; max-width: 800px; margin: 0 auto 50px; }
+    .awards-tag { display:inline-flex; align-items:center; gap:8px; font-size:.75rem; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--p); margin-bottom:16px; font-family:'Poppins',sans-serif;}
+    .awards-tag::before { content:''; display:block; width:24px; height:2px; background:var(--p); }
+    .awards-title { font-family:'Fredoka',cursive; font-size:clamp(2.2rem,4vw,3.2rem); font-weight:700; color:var(--txt); margin-bottom:16px; line-height:1.15; }
+    .awards-gallery { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px; }
+    .award-card { background:white; border-radius:20px; overflow:hidden; box-shadow:0 8px 30px rgba(130,87,189,.06); transition:.35s; border:1px solid rgba(130,87,189,.05); display:flex; flex-direction:column; }
+    .award-card:hover { transform:translateY(-6px); box-shadow:0 20px 50px rgba(130,87,189,.15); }
+    .award-img-wrap { width:100%; height:200px; padding:20px; display:flex; align-items:center; justify-content:center; background:#fcfbff; }
+    .award-img-wrap img { max-height:100%; max-width:100%; object-fit:contain; }
+    .award-body { padding:24px; text-align:center; border-top:1px solid rgba(130,87,189,.05); flex-grow:1; display:flex; flex-direction:column; justify-content:center; }
+    .award-title-txt { font-family:'Fredoka',cursive; font-size:1.1rem; font-weight:700; color:var(--txt); margin-bottom:8px; line-height:1.3; }
+    .award-org { font-size:.85rem; font-weight:600; color:var(--p); text-transform:uppercase; letter-spacing:1px; font-family:'Poppins',sans-serif; }
+
+</style>
 </head>
 <body class="tykes-home">
 
@@ -487,11 +503,11 @@
         <div class="nav-item">
           <a href="../Tykes Html Templates/tykes-programmes.html">Programs <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
           <div class="nav-dropdown">
-            <a href="../Tykes Html Templates/tykes-programmes.html#playgroup"><span class="dot" style="background:#A78BFA;"></span> Play Group</a>
-            <a href="../Tykes Html Templates/tykes-programmes.html#nursery"><span class="dot" style="background:#F97316;"></span> Nursery</a>
-            <a href="../Tykes Html Templates/tykes-programmes.html#junior"><span class="dot" style="background:#0EA5E9;"></span> Junior Kg</a>
-            <a href="../Tykes Html Templates/tykes-programmes.html#senior"><span class="dot" style="background:#22C55E;"></span> Senior Kg</a>
-            <a href="../Tykes Html Templates/tykes-programmes.html#daycare"><span class="dot" style="background:#F59E0B;"></span> Daycare</a>
+            <a href="../Tykes Html Templates/tykes-playgroup.html"><span class="dot" style="background:#A78BFA;"></span> Play Group</a>
+            <a href="../Tykes Html Templates/tykes-nursery.html"><span class="dot" style="background:#F97316;"></span> Nursery</a>
+            <a href="../Tykes Html Templates/tykes-junior-kg.html"><span class="dot" style="background:#0EA5E9;"></span> Junior Kg</a>
+            <a href="../Tykes Html Templates/tykes-senior-kg.html"><span class="dot" style="background:#22C55E;"></span> Senior Kg</a>
+            <a href="../Tykes Html Templates/tykes-premium-daycare.html"><span class="dot" style="background:#F59E0B;"></span> Daycare</a>
           </div>
         </div>
         <div class="nav-item"><a href="../Tykes Html Templates/tykes-corporate-daycare.html">Corporate Daycare</a></div>
@@ -542,11 +558,11 @@
       <button class="mob-link has-sub" onclick="toggleMobSub('sub-programs-dd')">Programs <span class="mob-chevron">›</span></button>
       <div class="mob-sub" id="sub-programs-dd">
         <a href="../Tykes Html Templates/tykes-programmes.html"><span class="dot" style="background:#7C3AED;"></span> Our Programmes</a>
-        <a href="../Tykes Html Templates/tykes-programmes.html#playgroup"><span class="dot" style="background:#A78BFA;"></span> Play Group</a>
-        <a href="../Tykes Html Templates/tykes-programmes.html#nursery"><span class="dot" style="background:#F97316;"></span> Nursery</a>
-        <a href="../Tykes Html Templates/tykes-programmes.html#junior"><span class="dot" style="background:#0EA5E9;"></span> Junior KG</a>
-        <a href="../Tykes Html Templates/tykes-programmes.html#senior"><span class="dot" style="background:#22C55E;"></span> Senior KG</a>
-        <a href="../Tykes Html Templates/tykes-programmes.html#daycare"><span class="dot" style="background:#F59E0B;"></span> Daycare</a>
+        <a href="../Tykes Html Templates/tykes-playgroup.html"><span class="dot" style="background:#A78BFA;"></span> Play Group</a>
+        <a href="../Tykes Html Templates/tykes-nursery.html"><span class="dot" style="background:#F97316;"></span> Nursery</a>
+        <a href="../Tykes Html Templates/tykes-junior-kg.html"><span class="dot" style="background:#0EA5E9;"></span> Junior KG</a>
+        <a href="../Tykes Html Templates/tykes-senior-kg.html"><span class="dot" style="background:#22C55E;"></span> Senior KG</a>
+        <a href="../Tykes Html Templates/tykes-premium-daycare.html"><span class="dot" style="background:#F59E0B;"></span> Daycare</a>
       </div>
       <a href="../Tykes Html Templates/tykes-corporate-daycare.html" class="mob-link">Corporate Daycare</a>
       <button class="mob-link has-sub" onclick="toggleMobSub('sub-franchise-dd')">Franchise <span class="mob-chevron">›</span></button>
@@ -715,7 +731,7 @@
 
       <div class="prog-cards-row">
         <!-- Card 1 -->
-        <a href="../Tykes Html Templates/tykes-programmes.html#playgroup" class="prog-card">
+        <a href="../Tykes Html Templates/tykes-playgroup.html" class="prog-card">
           <img src="https://tykes.school/wp-content/uploads/2026/04/6.png" alt="Play Group" class="prog-card-img">
           <div class="prog-card-body">
             <span class="prog-card-tag" style="color:var(--pink);">🍼 AGE 2-3</span>
@@ -726,7 +742,7 @@
         </a>
         
         <!-- Card 2 -->
-        <a href="../Tykes Html Templates/tykes-programmes.html#nursery" class="prog-card">
+        <a href="../Tykes Html Templates/tykes-nursery.html" class="prog-card">
           <img src="https://tykes.school/wp-content/uploads/2026/04/4.png" alt="Nursery" class="prog-card-img">
           <div class="prog-card-body">
             <span class="prog-card-tag" style="color:var(--orange);">🚀 AGE 3-4</span>
@@ -737,7 +753,7 @@
         </a>
         
         <!-- Card 3 -->
-        <a href="../Tykes Html Templates/tykes-programmes.html#junior" class="prog-card">
+        <a href="../Tykes Html Templates/tykes-junior-kg.html" class="prog-card">
           <img src="https://tykes.school/wp-content/uploads/2026/04/2.png" alt="Junior KG" class="prog-card-img">
           <div class="prog-card-body">
             <span class="prog-card-tag" style="color:var(--teal);">🌟 AGE 4-5</span>
@@ -748,7 +764,7 @@
         </a>
         
         <!-- Card 4 -->
-        <a href="../Tykes Html Templates/tykes-programmes.html#senior" class="prog-card">
+        <a href="../Tykes Html Templates/tykes-senior-kg.html" class="prog-card">
           <img src="https://tykes.school/wp-content/uploads/2026/04/5.png" alt="Senior KG" class="prog-card-img">
           <div class="prog-card-body">
             <span class="prog-card-tag" style="color:var(--green);">🎓 AGE 5-6</span>
@@ -759,7 +775,7 @@
         </a>
         
         <!-- Card 5 -->
-        <a href="../Tykes Html Templates/tykes-programmes.html#daycare" class="prog-card">
+        <a href="../Tykes Html Templates/tykes-premium-daycare.html" class="prog-card">
           <img src="https://tykes.school/wp-content/uploads/2026/04/3.png" alt="Premium Daycare" class="prog-card-img">
           <div class="prog-card-body">
             <span class="prog-card-tag" style="color:var(--goldd);">🏡 6M - 12 YRS</span>
@@ -911,79 +927,96 @@
   </section>
 
   <!-- ─── ACHIEVEMENT STATS SECTION ─── -->
-  <section class="achieve-sec">
-    <div class="achieve-overlay"></div>
-    <div class="achieve-inner container">
-      <div class="achieve-header">
-        <p class="achieve-eyebrow">Awards &amp; Recognition</p>
-        <h2 class="achieve-title">50+ Awards. One Consistent<br>Standard of Excellence.</h2>
+  
+  <!-- ─── NEW AWARDS GALLERY ─── -->
+  <section class="awards-sec" id="recognitions">
+    <div class="container">
+      <div class="awards-sec-inner">
+        <div class="awards-tag">A Legacy of Excellence</div>
+        <h2 class="awards-title">Our Recognitions</h2>
       </div>
-      <!-- Carousel Viewport: clips to 4 visible -->
-      <div class="achieve-viewport">
-        <div class="achieve-track" id="achieveTrack">
-          <div class="achieve-stat is-active" data-index="0">
-            <div class="achieve-circle">
-              <span class="achieve-icon">🏆</span>
-            </div>
-            <h3 class="achieve-label">#1 India ECE Index 2025</h3>
-            <p class="achieve-desc">Ranked #1 by AIP &amp; CQECCE in both Pune and Navi Mumbai — India's most credible early childhood ranking.</p>
+      <div class="awards-gallery">
+        <div class="award-card">
+          <div class="award-img-wrap"><img src="https://tykes.school/wp-content/uploads/2026/03/navi-Mumbai.jpg" alt="India Early Childhood Excellence Index 2025" loading="lazy"></div>
+          <div class="award-body">
+            <div class="award-title-txt">India Early Childhood Excellence Index 2025 (Navi Mumbai)</div>
+            <div class="award-org">AIP &amp; CQECCE</div>
           </div>
-          <div class="achieve-stat" data-index="1">
-            <div class="achieve-circle">
-              <span class="achieve-icon">📰</span>
-            </div>
-            <h3 class="achieve-label">Times Leading Icons</h3>
-            <p class="achieve-desc">Recognised by Times of India for Leadership &amp; Innovation in Education at a national level.</p>
+        </div>
+        <div class="award-card">
+          <div class="award-img-wrap"><img src="https://tykes.school/wp-content/uploads/2026/03/Pune.jpg" alt="40 Under 40 Edupreneurs" loading="lazy"></div>
+          <div class="award-body">
+            <div class="award-title-txt">India Early Childhood Excellence Index 2025 (Pune)</div>
+            <div class="award-org">AIP &amp; CQECCE</div>
           </div>
-          <div class="achieve-stat" data-index="2">
-            <div class="achieve-circle">
-              <span class="achieve-icon">🌟</span>
-            </div>
-            <h3 class="achieve-label">Rabindranath Tagore Award</h3>
-            <p class="achieve-desc">National Directors Award 2025 — honouring exceptional leadership in early childhood education across India.</p>
+        </div>
+        <div class="award-card">
+          <div class="award-img-wrap"><img src="https://tykes.school/wp-content/uploads/2026/03/vlcsnap-2026-03-24-11h00m52s556.png" alt="Most Promising Preschool &amp; Daycare" loading="lazy"></div>
+          <div class="award-body">
+            <div class="award-title-txt">Most Promising Preschool &amp; Daycare</div>
+            <div class="award-org">Times of India</div>
           </div>
-          <div class="achieve-stat" data-index="3">
-            <div class="achieve-circle">
-              <span class="achieve-icon">📚</span>
-            </div>
-            <h3 class="achieve-label">EducationWorld Ranked</h3>
-            <p class="achieve-desc">Consistently featured in EducationWorld National Rankings as one of India's most admired preschool networks.</p>
+        </div>
+        <div class="award-card">
+          <div class="award-img-wrap"><img src="https://tykes.school/wp-content/uploads/2026/03/gold.png" alt="Innovation in Curriculum" loading="lazy"></div>
+          <div class="award-body">
+            <div class="award-title-txt">Innovation in Curriculum</div>
+            <div class="award-org">BW Education</div>
           </div>
-          <div class="achieve-stat" data-index="4">
-            <div class="achieve-circle">
-              <span class="achieve-icon">🎖️</span>
-            </div>
-            <h3 class="achieve-label">Indian Education Awards</h3>
-            <p class="achieve-desc">Gold &amp; Silver Awards 2024 — Leading Pre-School Franchise in India, recognised for institutional excellence.</p>
+        </div>
+        <div class="award-card">
+          <div class="award-img-wrap"><img src="https://tykes.school/wp-content/uploads/2026/03/9-scaled.png" alt="Leading Preschool of India" loading="lazy"></div>
+          <div class="award-body">
+            <div class="award-title-txt">Leading Preschool of India</div>
+            <div class="award-org">BW Education</div>
           </div>
-          <div class="achieve-stat" data-index="5">
-            <div class="achieve-circle">
-              <span class="achieve-icon">🌍</span>
-            </div>
-            <h3 class="achieve-label">World Education Summit</h3>
-            <p class="achieve-desc">Franchise Excellence Award at the World Education Summit, Mumbai — recognising scalable, quality-first growth.</p>
+        </div>
+        <div class="award-card">
+          <div class="award-img-wrap"><img src="https://tykes.school/wp-content/uploads/2026/03/Brainwonders-RNT-Award-copy-scaled.jpg" alt="Most Promising Preschool" loading="lazy"></div>
+          <div class="award-body">
+            <div class="award-title-txt">Rabindranath Tagore National Directors Award</div>
+            <div class="award-org">Brainwonders</div>
           </div>
-          <div class="achieve-stat" data-index="6">
-            <div class="achieve-circle">
-              <span class="achieve-icon">✨</span>
-            </div>
-            <h3 class="achieve-label">Times Education Excellence</h3>
-            <p class="achieve-desc">Most Promising Pre-School — recognised by Times Preschool for outstanding curriculum delivery and parent trust.</p>
+        </div>
+        <div class="award-card">
+          <div class="award-img-wrap"><img src="https://tykes.school/wp-content/uploads/2026/03/Award-002-02.png" alt="Pune's #1 Preschool" loading="lazy"></div>
+          <div class="award-body">
+            <div class="award-title-txt">#2 in Navi Mumbai</div>
+            <div class="award-org">The Times of India</div>
+          </div>
+        </div>
+        <div class="award-card">
+          <div class="award-img-wrap"><img src="https://tykes.school/wp-content/uploads/2026/03/001-scaled.jpeg" alt="Excellence in Early Education" loading="lazy"></div>
+          <div class="award-body">
+            <div class="award-title-txt">Leadership and Innovation in Education</div>
+            <div class="award-org">The Times of India</div>
+          </div>
+        </div>
+        <div class="award-card">
+          <div class="award-img-wrap"><img src="https://tykes.school/wp-content/uploads/2026/03/06.jpg" alt="Top Preschool Brand" loading="lazy"></div>
+          <div class="award-body">
+            <div class="award-title-txt">Best Pre School Chain of the Year</div>
+            <div class="award-org">Entrepreneur</div>
+          </div>
+        </div>
+        <div class="award-card">
+          <div class="award-img-wrap"><img src="https://tykes.school/wp-content/uploads/2026/03/03.jpg" alt="Quality Education Award" loading="lazy"></div>
+          <div class="award-body">
+            <div class="award-title-txt">Certificate of Recognition</div>
+            <div class="award-org">elets World Education Summit</div>
+          </div>
+        </div>
+        <div class="award-card">
+          <div class="award-img-wrap"><img src="https://tykes.school/wp-content/uploads/2026/03/Education-world-Award-copy.png" alt="Outstanding Preschool" loading="lazy"></div>
+          <div class="award-body">
+            <div class="award-title-txt">#9 in India</div>
+            <div class="award-org">Education World</div>
           </div>
         </div>
       </div>
-      <!-- 7 pills = 7 stats -->
-      <div class="achieve-dots" id="achieveDots">
-        <button class="achieve-dot active" data-index="0" aria-label="Stat 1"></button>
-        <button class="achieve-dot" data-index="1" aria-label="Stat 2"></button>
-        <button class="achieve-dot" data-index="2" aria-label="Stat 3"></button>
-        <button class="achieve-dot" data-index="3" aria-label="Stat 4"></button>
-        <button class="achieve-dot" data-index="4" aria-label="Stat 5"></button>
-        <button class="achieve-dot" data-index="5" aria-label="Stat 6"></button>
-        <button class="achieve-dot" data-index="6" aria-label="Stat 7"></button>
-      </div>
     </div>
   </section>
+
 
   <!-- ─── AWARDS TICKER ─── -->
   <div class="awards-ticker">
@@ -1022,7 +1055,7 @@
         <a href="https://youtube.com" class="social-btn" target="_blank" rel="noopener">▶</a>
       </div>
     </div>
-    <div class="footer-col b-poppins"><h5>Programmes</h5><ul><li><a href="../Tykes Html Templates/tykes-programmes.html#playgroup">Play Group</a></li><li><a href="../Tykes Html Templates/tykes-programmes.html#nursery">Nursery</a></li><li><a href="../Tykes Html Templates/tykes-programmes.html#junior">Junior KG</a></li><li><a href="../Tykes Html Templates/tykes-programmes.html#senior">Senior KG</a></li><li><a href="../Tykes Html Templates/tykes-programmes.html#daycare">Daycare</a></li></ul></div>
+    <div class="footer-col b-poppins"><h5>Programmes</h5><ul><li><a href="../Tykes Html Templates/tykes-playgroup.html">Play Group</a></li><li><a href="../Tykes Html Templates/tykes-nursery.html">Nursery</a></li><li><a href="../Tykes Html Templates/tykes-junior-kg.html">Junior KG</a></li><li><a href="../Tykes Html Templates/tykes-senior-kg.html">Senior KG</a></li><li><a href="../Tykes Html Templates/tykes-premium-daycare.html">Daycare</a></li></ul></div>
     <div class="footer-col b-poppins"><h5>Quick Links</h5><ul><li><a href="../Tykes Html Templates/tykes-about.html">About Us</a></li><li><a href="../Tykes Html Templates/tykes-curriculum.html">Our Curriculum</a></li><li><a href="../Tykes Html Templates/tykes-admissions.html">Admissions</a></li><li><a href="../Tykes Html Templates/tykes-corporate-daycare.html">Corporate Daycare</a></li><li><a href="../Tykes Html Templates/tykes-franchise-main.html">Franchise</a></li><li><a href="../Tykes Html Templates/tykes-contact.html">Contact</a></li></ul></div>
     <div class="footer-col b-poppins"><h5>Get In Touch</h5><div class="footer-contact-item"><span class="icon">📞</span><a href="tel:8400966400">8400-966-400</a></div><div class="footer-contact-item"><span class="icon">✉️</span><a href="mailto:info@tykes.school">info@tykes.school</a></div><div class="footer-contact-item"><span class="icon">🌐</span><a href="../Tykes Html Templates/tykes-homepage.html">tykes.school</a></div></div>
   </div></div></div>
