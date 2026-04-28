@@ -1347,7 +1347,7 @@
           obs.unobserve(e.target);
         }
       });
-    }, { threshold: 0.12 });
+    }, { rootMargin: '50px 0px 0px 0px', threshold: 0 });
     els.forEach(function(el){ obs.observe(el); });
   })();
 </script>
