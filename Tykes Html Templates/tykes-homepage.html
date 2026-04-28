@@ -135,7 +135,7 @@
     .hero-content { max-width: 520px; }
     .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: white; padding: 6px 14px; border-radius: 50px; font-size: .7rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--p); margin-bottom: 16px; box-shadow: 0 4px 15px rgba(130,87,189,.08); }
     .hero-eyebrow .dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; display: inline-block; }
-    .hero-h1 { font-family: 'Fredoka', cursive; font-size: clamp(2.6rem, 4.5vw, 3.8rem); color: var(--txt); line-height: 1.1; margin-bottom: 16px; letter-spacing: -1.5px; }
+    .hero-h1 { font-family: 'Fredoka', cursive; font-size: clamp(2.2rem, 7vw, 3.8rem); color: var(--txt); line-height: 1.1; margin-bottom: 16px; letter-spacing: -1.5px; }
     .hero-h1 .highlight { color: var(--p); position: relative; display: inline-block; }
     .hero-h1 .highlight::after { content: ''; position: absolute; bottom: 6px; left: 0; width: 100%; height: 6px; background: var(--gold); border-radius: 4px; z-index: -1; }
     .hero-p { font-size: 1rem; color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
@@ -178,7 +178,7 @@
     .legacy-content { max-width: 540px; }
     .legacy-eyebrow { font-size: .75rem; font-weight: 800; letter-spacing: 2px; color: var(--pink); text-transform: uppercase; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; }
     .legacy-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--pink); }
-    .legacy-h2 { font-family: 'Fredoka', cursive; font-size: clamp(2.4rem, 4vw, 3rem); color: var(--txt); line-height: 1.15; margin-bottom: 24px; letter-spacing: -1px; }
+    .legacy-h2 { font-family: 'Fredoka', cursive; font-size: clamp(2rem, 6vw, 3.4rem); color: var(--txt); line-height: 1.15; margin-bottom: 24px; letter-spacing: -1px; }
     .legacy-p { font-size: 1.05rem; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
 
     /* ─── TYKES ACTIVITIES SECTION ─── */
@@ -240,7 +240,7 @@
     .prog-overview { background: white; padding: 100px 0; }
     .section-label { display: inline-flex; align-items: center; gap: 8px; font-size: .75rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--p); margin-bottom: 16px; }
     .section-label::before { content: ''; display: block; width: 24px; height: 2px; background: var(--p); }
-    .section-title { font-family: 'Fredoka', cursive; font-size: clamp(2.4rem, 3.5vw, 3.2rem); font-weight: 700; color: var(--txt); line-height: 1.1; margin-bottom: 16px; letter-spacing: -1px; }
+    .section-title { font-family: 'Fredoka', cursive; font-size: clamp(2rem, 6vw, 3.4rem); font-weight: 700; color: var(--txt); line-height: 1.1; margin-bottom: 16px; letter-spacing: -1px; }
     .section-sub { font-size: 1.05rem; color: var(--muted); line-height: 1.7; max-width: 600px; }
     
     .prog-cards-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 56px; }
@@ -445,7 +445,7 @@
     @media (max-width: 768px) {
       .stats-strip-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
       .stat-item-c:not(:last-child)::after { display: none; }
-      .hero-img { height: 400px; }
+      .hero-img { height: 300px; object-fit: cover; width: 100%; }
       .why-card { flex: 0 0 calc(100%); }
       .prog-cards-row { grid-template-columns: repeat(2, 1fr); }
     }
@@ -762,7 +762,7 @@
     <div class="container">
       <div class="testi-header">
         <div class="testi-eyebrow b-poppins">Parent Voices</div>
-        <h2 class="sb-h2 h-fredoka" style="font-size:clamp(2.4rem, 4vw, 3rem);">What Parents Say About Us</h2>
+        <h2 class="sb-h2 h-fredoka" style="font-size:clamp(2rem, 6vw, 3.4rem);">What Parents Say About Us</h2>
       </div>
       <div class="t-grid">
         <div class="t-card">
