@@ -33,10 +33,10 @@
     .site-header.scrolled .header-inner{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);box-shadow:0 4px 30px rgba(124,58,237,.12);padding:10px 40px;border-bottom:none}
     .header-inner{display:flex;align-items:center;justify-content:space-between;position:relative;padding:18px 40px;background:rgba(255,255,255,.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(124,58,237,.08);transition:all .4s}
     .header-logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
-    .header-logo img{height:52px;width:auto;display:block}
+    .header-logo img{height:60px;width:auto;display:block}
     .main-nav{display:flex;align-items:center;gap:4px;position:absolute;left:50%;transform:translateX(-50%)}
     .nav-item{position:relative}
-    .nav-item>a{display:flex;align-items:center;gap:5px;padding:8px 14px;border-radius:50px;font-weight:700;font-size:.92rem;color:var(--txt);transition:.25s;white-space:nowrap}
+    .nav-item>a{display:flex;align-items:center;gap:5px;padding:8px 12px;border-radius:50px;font-weight:700;font-size:.85rem;color:var(--txt);transition:.25s;white-space:nowrap}
     .nav-item>a:hover,.nav-item>a.active{color:var(--p);background:var(--pxl)}
     .nav-item>a .chevron{display:inline-block;width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5;transition:transform .3s}
     .nav-item:hover>a .chevron{transform:rotate(180deg)}
@@ -244,8 +244,7 @@
       .office-grid{grid-template-columns:1fr}
       .social-inner{grid-template-columns:1fr}
     }
-    @media(max-width:991px){
-      .main-nav{display:none} .ham-btn{display:flex}
+    @media(max-width:1200px){.main-nav{display:none} .ham-btn{display:flex}
       .mobile-drawer{display:block;pointer-events:none}
       .footer-grid{grid-template-columns:1fr 1fr}
       #tykes-popup-form,#tykes-form-overlay{display:none !important}
@@ -270,8 +269,7 @@
         <div class="nav-item">
           <a href="tykes-about.html">About Us <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
           <div class="nav-dropdown">
-            <a href="tykes-about.html"><span class="dot" style="background:#7C3AED;"></span> About Us</a>
-            <a href="tykes-philosophy.html"><span class="dot" style="background:#F97316;"></span> Our Philosophy</a>
+                        <a href="tykes-philosophy.html"><span class="dot" style="background:#F97316;"></span> Our Philosophy</a>
             <a href="tykes-leadership.html"><span class="dot" style="background:#EC4899;"></span> Our Leadership</a>
             <a href="tykes-spaces.html"><span class="dot" style="background:#14B8A6;"></span> Our Learning Spaces</a>
             <a href="tykes-awards.html"><span class="dot" style="background:#F59E0B;"></span> Awards &amp; Recognition</a>
@@ -308,8 +306,7 @@
         <div class="nav-item">
           <a href="tykes-contact.html">Contact Us <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
           <div class="nav-dropdown">
-            <a href="tykes-contact.html"><span class="dot" style="background:#7C3AED;"></span> Get in Touch</a>
-            <a href="tykes-centers-list.html"><span class="dot" style="background:#14B8A6;"></span> Our Centers</a>
+                        <a href="tykes-centers-list.html"><span class="dot" style="background:#14B8A6;"></span> Our Centers</a>
           </div>
         </div>
       </nav>
