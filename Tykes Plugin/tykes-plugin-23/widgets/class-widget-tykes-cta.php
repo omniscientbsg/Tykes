@@ -19,7 +19,7 @@ class Widget_Tykes_CTA extends Widget_Base_Tykes {
     protected function register_controls(): void {
         /* Content */
         $this->start_controls_section( 'sec_content', [ 'label' => __( '📋 Content', 'tykes-ds' ), 'tab' => Controls_Manager::TAB_CONTENT ] );
-        $this->add_control( 'pill_text',        [ 'label' => __( 'Pill Label', 'tykes-ds' ),            'type' => Controls_Manager::TEXT,     'default' => '2025–26 Admissions Open' ] );
+        $this->add_control( 'pill_text',        [ 'label' => __( 'Pill Label', 'tykes-ds' ),            'type' => Controls_Manager::TEXT,     'default' => 'Admissions Open' ] );
         $this->add_control( 'heading_plain',    [ 'label' => __( 'Heading (plain)', 'tykes-ds' ),        'type' => Controls_Manager::TEXT,     'default' => 'Give Your Child the' ] );
         $this->add_control( 'heading_gradient', [ 'label' => __( 'Heading (highlight)', 'tykes-ds' ),   'type' => Controls_Manager::TEXT,     'default' => 'Best Start.' ] );
         $this->add_control( 'description',      [ 'label' => __( 'Description', 'tykes-ds' ),           'type' => Controls_Manager::TEXTAREA, 'default' => 'Limited seats available. Book a free visit today.' ] );
